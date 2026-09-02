@@ -1,0 +1,597 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #f8f7f5 0%, #f3f4f7 100%);
+}
+
+.app-shell {
+  box-sizing: border-box;
+}
+
+section {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-margin-top: 80px;
+  position: relative;
+}
+
+#home,
+#about,
+#speaker,
+#benefits,
+#agenda,
+#testimonials,
+#cta {
+  background: transparent;
+}
+
+.app > section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.footer {
+  background: linear-gradient(180deg, #0e1a2a 0%, #081421 100%);
+  color: #d8e5f1;
+  padding: 40px 0;
+  text-align: center;
+  margin-top: auto;
+  border-top: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.footer .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer p {
+  font-size: 0.9rem;
+}
+
+/* Container utility */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  section {
+    scroll-margin-top: 60px;
+  }
+
+  .footer {
+    padding: 32px 16px;
+  }
+
+  .footer .container,
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Compact landing-page rhythm */
+.app > section,
+.app > section > section,
+.app > section > div {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.about-container,
+section.speaker-section,
+section.benefits-section,
+section.agenda-section,
+section.testimonials-section,
+section.cta-section {
+  min-height: auto;
+  margin: 0;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Keep the closing invitation flush with the next component. */
+#about .about-container {
+  padding-bottom: 0;
+}
+
+/* Prevent the full-page CTA styles from stretching About's inline CTA. */
+#about .about-container .cta-section {
+  min-height: 0;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+/* Isolate About stats from the Testimonials stats animation/layout. */
+#about .about-container .stats-section {
+  display: flex;
+  min-height: 0;
+  height: auto;
+  margin: 0;
+  padding: 1.25rem 2rem;
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
+#about .about-container .card-warning {
+  margin-bottom: 1rem;
+}
+
+/* Lighter, more editorial typography across public components */
+.app h1,
+.app h2 {
+  font-weight: 600 !important;
+}
+
+.app h3,
+.app h4,
+.app strong,
+.app button,
+.app .badge,
+.app [class*="badge"],
+.app [class*="title"] {
+  font-weight: 600 !important;
+}
+
+.app p,
+.app li,
+.app a,
+.app span,
+.app [class*="subtitle"] {
+  font-weight: 400;
+}
+
+/* Professional responsive type scale */
+.app h1 {
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.app h2 {
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.app h3 {
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  line-height: 1.35;
+}
+
+.app h4 {
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  line-height: 1.4;
+}
+
+.app p,
+.app li {
+  font-size: clamp(0.94rem, 1.15vw, 1.05rem);
+  line-height: 1.7;
+}
+
+.app button,
+.app .register-btn,
+.app [class*="button"] {
+  font-size: 0.86rem;
+  line-height: 1.2;
+}
+
+.app [class*="badge"],
+.app [class*="tag"] {
+  font-size: 0.7rem;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+}
+
+.app small,
+.app [class*="label"] {
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .about-container,
+  section.speaker-section,
+  section.benefits-section,
+  section.agenda-section,
+  section.testimonials-section,
+  section.cta-section {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .app h1 {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+  }
+
+  .app h2 {
+    font-size: clamp(1.5rem, 7vw, 2.1rem);
+  }
+
+  .app p,
+  .app li {
+    font-size: 0.94rem;
+    line-height: 1.65;
+  }
+}
+
+/* Public website dark theme */
+html[data-theme="dark"] { color-scheme: dark; background: #070b14; }
+html[data-theme="dark"] body,
+html[data-theme="dark"] #root,
+html[data-theme="dark"] .app { background: #070b14; color: #e5edf7; }
+
+html[data-theme="dark"] .about-container,
+html[data-theme="dark"] section.speaker-section,
+html[data-theme="dark"] section.benefits-section,
+html[data-theme="dark"] section.agenda-section,
+html[data-theme="dark"] section.testimonials-section,
+html[data-theme="dark"] section.cta-section {
+  background: #090f1b !important;
+}
+
+html[data-theme="dark"] .app .card,
+html[data-theme="dark"] .app .speaker-main-card,
+html[data-theme="dark"] .app .credential-item,
+html[data-theme="dark"] .app .benefit-card,
+html[data-theme="dark"] .app .bonus-item,
+html[data-theme="dark"] .app .agenda-content,
+html[data-theme="dark"] .app .testimonial-card,
+html[data-theme="dark"] .app .stats-section,
+html[data-theme="dark"] .app .info-card,
+html[data-theme="dark"] .app .social-proof {
+  background: #111827 !important;
+  border-color: #253247 !important;
+  box-shadow: 0 18px 45px rgba(0,0,0,.22) !important;
+}
+
+html[data-theme="dark"] .app h1,
+html[data-theme="dark"] .app h2,
+html[data-theme="dark"] .app h3,
+html[data-theme="dark"] .app h4,
+html[data-theme="dark"] .app strong,
+html[data-theme="dark"] .app [class*="title"] { color: #f8fafc !important; }
+
+html[data-theme="dark"] .app p,
+html[data-theme="dark"] .app li,
+html[data-theme="dark"] .app [class*="subtitle"],
+html[data-theme="dark"] .app [class*="text"],
+html[data-theme="dark"] .app [class*="label"] { color: #aebbd0; }
+
+html[data-theme="dark"] .app .topic-item,
+html[data-theme="dark"] .app .outcome-item,
+html[data-theme="dark"] .app .audience-item,
+html[data-theme="dark"] .app .problem-item,
+html[data-theme="dark"] .app .not-suitable-item {
+  background: #0d1524 !important;
+  border-color: #26344a !important;
+}
+
+/* Requested fixed black labels in both light and dark themes. */
+.app .speaker-section .credentials-section > .section-subtitle,
+.app .benefits-section .bonuses-header h2,
+.app .benefits-section .bonuses-header h2 span,
+.app .agenda-section .day-btn > span:first-of-type,
+.app .agenda-section .day-info h2,
+.app section.cta-section .cta-title,
+.app section.cta-section .cta-title span,
+.app section.cta-section .seats-info span,
+.app section.cta-section .seats-info strong,
+.app section.cta-section .urgency-text,
+.app section.cta-section .urgency-text strong {
+  color: #000000 !important;
+}
+
+/* Floating card stays white, so its copy must stay dark in every theme. */
+html[data-theme="light"] .app .floating-card-wrapper .floating-card :is(h4, p, span, strong),
+html[data-theme="light"] .app .floating-card-wrapper .card-footer :is(p, span, strong),
+html[data-theme="dark"] .app .floating-card-wrapper .floating-card :is(h4, p, span, strong),
+html[data-theme="dark"] .app .floating-card-wrapper .card-footer :is(p, span, strong) {
+  color: #111827 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .app .floating-card-wrapper .price-tag,
+html[data-theme="light"] .app .floating-card-wrapper .bonus-tag,
+html[data-theme="dark"] .app .floating-card-wrapper .price-tag,
+html[data-theme="dark"] .app .floating-card-wrapper .bonus-tag {
+  color: #111827 !important;
+  opacity: 1 !important;
+}
+
+/* Agenda cards remain light in both themes; keep their copy dark and readable. */
+html[data-theme="light"] .app .agenda-section :is(.day-btn, .day-header, .session-item, .day-timeline, .takeaways-section) :is(h2, h3, h4, p, span, strong),
+html[data-theme="dark"] .app .agenda-section :is(.day-btn, .day-header, .session-item, .day-timeline, .takeaways-section) :is(h2, h3, h4, p, span, strong) {
+  color: #1f2937 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .app .agenda-section :is(.day-number, .session-number, .day-theme),
+html[data-theme="dark"] .app .agenda-section :is(.day-number, .session-number, .day-theme) {
+  color: #0284c7 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .app .agenda-section .day-subtitle,
+html[data-theme="dark"] .app .agenda-section .day-subtitle {
+  color: #475569 !important;
+}
+
+html[data-theme="light"] .app .agenda-section .day-selector .day-btn > span:not(.day-subtitle),
+html[data-theme="dark"] .app .agenda-section .day-selector .day-btn > span:not(.day-subtitle),
+html[data-theme="light"] .app .agenda-section .day-selector .day-btn.active > span:not(.day-subtitle),
+html[data-theme="dark"] .app .agenda-section .day-selector .day-btn.active > span:not(.day-subtitle) {
+  color: #1f2937 !important;
+  opacity: 1 !important;
+}
+
+/* Testimonial cards stay white, so their content stays dark in either theme. */
+html[data-theme="light"] .app .testimonials-section .testimonial-content :is(.testimonial-text, .author-info h4, .author-info p),
+html[data-theme="dark"] .app .testimonials-section .testimonial-content :is(.testimonial-text, .author-info h4, .author-info p) {
+  color: #334155 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .app .testimonials-section .testimonial-content .author-info h4,
+html[data-theme="dark"] .app .testimonials-section .testimonial-content .author-info h4 {
+  color: #0f172a !important;
+}
+
+html[data-theme="light"] .app .testimonials-section .testimonial-content .tag.before,
+html[data-theme="dark"] .app .testimonials-section .testimonial-content .tag.before {
+  color: #dc2626 !important;
+}
+
+html[data-theme="light"] .app .testimonials-section .testimonial-content .tag.after,
+html[data-theme="dark"] .app .testimonials-section .testimonial-content .tag.after {
+  color: #15803d !important;
+}
+
+html[data-theme="light"] .app .testimonials-section .testimonial-content .transformation-badge,
+html[data-theme="dark"] .app .testimonials-section .testimonial-content .transformation-badge {
+  color: #0284c7 !important;
+}
+
+/* The final invitation remains a white premium panel in both themes. */
+html[data-theme="light"] .app section.cta-section .cta-main-content,
+html[data-theme="dark"] .app section.cta-section .cta-main-content {
+  background: #ffffff !important;
+  border-color: #dce5ef !important;
+}
+
+html[data-theme="light"] .app section.cta-section .cta-main-content .cta-title,
+html[data-theme="dark"] .app section.cta-section .cta-main-content .cta-title {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .app section.cta-section .cta-main-content .cta-description,
+html[data-theme="dark"] .app section.cta-section .cta-main-content .cta-description {
+  color: #475569 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .app section.cta-section .cta-main-content .cta-badge span,
+html[data-theme="dark"] .app section.cta-section .cta-main-content .cta-badge span {
+  color: #92400e !important;
+}
+
+html[data-theme="light"] .app section.cta-section .cta-primary-btn span,
+html[data-theme="dark"] .app section.cta-section .cta-primary-btn span {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .app section.cta-section .cta-secondary-btn span,
+html[data-theme="dark"] .app section.cta-section .cta-secondary-btn span {
+  color: #0284c7 !important;
+}
+
+html[data-theme="light"] .app section.cta-section .seats-info :is(span, strong),
+html[data-theme="dark"] .app section.cta-section .seats-info :is(span, strong) {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .app section.cta-section .cta-trust-badges span,
+html[data-theme="dark"] .app section.cta-section .cta-trust-badges span {
+  color: #475569 !important;
+  opacity: 1 !important;
+}
+
+/* Admin-controlled responsive typography sizes. */
+.app h1 { font-size: var(--font-h1-size) !important; }
+.app h2 { font-size: var(--font-h2-size) !important; }
+.app h3, .app h4 { font-size: var(--font-subheading-size) !important; }
+.app p, .app li { font-size: var(--font-body-size) !important; }
+
+/* Floating-card typography is intentionally compact and fixed. */
+.app .floating-card-wrapper .card-item h4 {
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  letter-spacing: .08em !important;
+}
+
+.app .floating-card-wrapper .card-item p,
+.app .floating-card-wrapper .card-item p span {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+}
+
+.app .floating-card-wrapper .price-tag,
+.app .floating-card-wrapper .bonus-tag {
+  font-size: 8px !important;
+  line-height: 1.2 !important;
+}
+
+.app .floating-card-wrapper .footer-item,
+.app .floating-card-wrapper .footer-item span,
+.app .floating-card-wrapper .footer-item strong {
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+/* Registration links are styled as buttons, never text links. */
+.app a.hero-btn,
+.app a.cta-button,
+.app a.cta-primary-btn,
+.app a.cta-button-primary {
+  text-decoration: none !important;
+}
+
+/* Targeted dark-theme contrast for important conversion content. */
+html[data-theme="dark"] .speaker-section .section-subtitle,
+html[data-theme="dark"] .benefits-section .bonuses-header h2,
+html[data-theme="dark"] .agenda-section .day-info h2,
+html[data-theme="dark"] .agenda-section .day-btn > span:first-of-type,
+html[data-theme="dark"] section.cta-section .cta-title,
+html[data-theme="dark"] section.cta-section .cta-title .highlight-text,
+html[data-theme="dark"] section.cta-section .seats-info,
+html[data-theme="dark"] section.cta-section .seats-info span,
+html[data-theme="dark"] section.cta-section .seats-info strong,
+html[data-theme="dark"] section.cta-section .urgency-text,
+html[data-theme="dark"] section.cta-section .urgency-text strong {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .benefits-section .bonuses-header h2 span,
+html[data-theme="dark"] .speaker-section .section-icon,
+html[data-theme="dark"] .agenda-section .day-theme {
+  color: #38bdf8 !important;
+}
+
+html[data-theme="dark"] section.cta-section .seats-indicator,
+html[data-theme="dark"] section.cta-section .urgency-banner {
+  background: #111827 !important;
+  border-color: #334155 !important;
+}
+
+/* Premium dark treatment for the closing invitation. */
+html[data-theme="dark"] .app section.cta-section {
+  background:
+    radial-gradient(circle at 12% 15%, rgba(14, 165, 233, .14), transparent 32%),
+    radial-gradient(circle at 88% 80%, rgba(245, 158, 11, .08), transparent 28%),
+    #050b14 !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-main-content {
+  background: linear-gradient(145deg, rgba(17, 31, 50, .97), rgba(8, 18, 32, .98)) !important;
+  border: 1px solid rgba(125, 211, 252, .2) !important;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .04) !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-main-content:hover {
+  border-color: rgba(56, 189, 248, .38) !important;
+  box-shadow: 0 38px 100px rgba(0, 0, 0, .5), 0 0 50px rgba(14, 165, 233, .08) !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-title {
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  text-shadow: 0 8px 35px rgba(0, 0, 0, .25);
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-description {
+  color: #a9b8cc !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-badge {
+  background: rgba(245, 158, 11, .11) !important;
+  border: 1px solid rgba(251, 191, 36, .25) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-badge span {
+  color: #fcd77c !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-secondary-btn {
+  background: rgba(56, 189, 248, .07) !important;
+  border-color: rgba(125, 211, 252, .22) !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-secondary-btn span,
+html[data-theme="dark"] .app section.cta-section .cta-secondary-btn svg {
+  color: #7dd3fc !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .seats-indicator {
+  overflow: hidden;
+  background: rgba(2, 8, 23, .52) !important;
+  border: 1px solid rgba(148, 163, 184, .13) !important;
+  border-radius: 14px;
+  padding: .8rem 1rem;
+}
+
+html[data-theme="dark"] .app section.cta-section .seats-bar {
+  height: 6px;
+  background: #263449 !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .seats-info {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .cta-trust-badges span {
+  color: #9fb0c6 !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .trust-icon {
+  color: #38bdf8 !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .info-card {
+  background: linear-gradient(145deg, rgba(17, 31, 50, .85), rgba(10, 21, 37, .9)) !important;
+  border-color: rgba(125, 211, 252, .14) !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .info-icon {
+  background: rgba(56, 189, 248, .1) !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .urgency-banner {
+  background: linear-gradient(90deg, rgba(245, 158, 11, .1), rgba(234, 179, 8, .05)) !important;
+  border-color: rgba(245, 158, 11, .25) !important;
+}
+
+html[data-theme="dark"] .app section.cta-section .urgency-text,
+html[data-theme="dark"] .app section.cta-section .urgency-text strong {
+  color: #fcd77c !important;
+}

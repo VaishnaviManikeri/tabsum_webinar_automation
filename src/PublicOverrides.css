@@ -1,0 +1,53 @@
+/* Keep Home as the visual hero; use a tighter type scale everywhere else. */
+.app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) h1 {
+  font-size: clamp(1.8rem, 3vw, 2.65rem) !important;
+  line-height: 1.14 !important;
+}
+
+.app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) h2 {
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem) !important;
+  line-height: 1.22 !important;
+}
+
+.app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) :is(h3, h4) {
+  font-size: clamp(.86rem, 1.2vw, 1.02rem) !important;
+}
+
+.app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) :is(p, li) {
+  font-size: clamp(.8rem, .95vw, .88rem) !important;
+  line-height: 1.6 !important;
+}
+
+.app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) :is(button, a[class*="btn"], a[class*="button"]) {
+  font-size: .82rem !important;
+}
+
+/* Explicit CTA contrast: these declarations load last to avoid theme conflicts. */
+html[data-theme="dark"] .app #cta .cta-main-content .cta-title {
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="dark"] .app #cta .cta-main-content .cta-description {
+  color: #c1ccda !important;
+  -webkit-text-fill-color: #c1ccda !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="dark"] .app #cta .cta-badge span {
+  color: #fcd77c !important;
+  -webkit-text-fill-color: #fcd77c !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="dark"] .app #cta .cta-trust-badges span {
+  color: #b8c5d6 !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+  .app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) h1 {
+    font-size: clamp(1.55rem, 7vw, 2.1rem) !important;
+  }
+}

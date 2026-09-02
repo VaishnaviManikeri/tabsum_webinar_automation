@@ -1,0 +1,569 @@
+.registrations-page {
+  width: 100%;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.registrations-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.registrations-eyebrow {
+  color: #64748b;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.registrations-header h1 {
+  margin: 6px 0 5px;
+  color: #0f172a;
+  font-size: 1.8rem;
+}
+
+.registrations-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: .9rem;
+}
+
+.registrations-refresh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+}
+
+.registrations-refresh:hover {
+  color: #0284c7;
+  border-color: #0ea5e9;
+}
+
+.registration-spin {
+  animation: registrationSpin 1s linear infinite;
+}
+
+@keyframes registrationSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.registrations-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.registration-stat {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid #e7edf4;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 25px rgba(15, 23, 42, .04);
+}
+
+.registration-stat-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.registration-stat span {
+  display: block;
+  color: #64748b;
+  font-size: .75rem;
+}
+
+.registration-stat strong {
+  display: block;
+  margin-top: 4px;
+  color: #0f172a;
+  font-size: 1.4rem;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.registrations-card {
+  overflow: hidden;
+  border: 1px solid #e7edf4;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, .04);
+}
+
+.registrations-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.registrations-card-header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.1rem;
+}
+
+.registrations-card-header p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: .8rem;
+}
+
+.registration-count {
+  padding: 7px 11px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+.registration-filters {
+  display: flex;
+  gap: 12px;
+  padding: 18px 24px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.registration-search {
+  position: relative;
+  flex: 1;
+}
+
+.registration-search svg {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.registration-search input,
+.registration-filters select {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #dbe3ec;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #334155;
+  font-size: .82rem;
+}
+
+.registration-search input {
+  padding: 0 14px 0 38px;
+}
+
+.registration-filters select {
+  width: 175px;
+  padding: 0 12px;
+}
+
+.registration-search input:focus,
+.registration-filters select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, .1);
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.registrations-error {
+  margin: 15px 24px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: .8rem;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.registrations-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.registrations-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: collapse;
+}
+
+.registrations-table th {
+  padding: 13px 18px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: .68rem;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.registrations-table td {
+  padding: 15px 18px;
+  border-top: 1px solid #eef2f7;
+  color: #475569;
+  font-size: .78rem;
+  vertical-align: middle;
+}
+
+.registrations-table tbody tr:hover {
+  background: #fbfdff;
+}
+
+
+/* =====================================================
+   PARTICIPANT
+===================================================== */
+
+.participant {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.participant-avatar {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 9px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.participant strong {
+  display: block;
+  color: #1e293b;
+  font-size: .8rem;
+}
+
+.participant span {
+  display: block;
+  margin-top: 2px;
+  color: #94a3b8;
+  font-size: .65rem;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.participant-contact strong {
+  display: block;
+  color: #334155;
+  font-size: .75rem;
+  font-weight: 500;
+}
+
+.participant-contact span {
+  display: block;
+  margin-top: 3px;
+  color: #94a3b8;
+  font-size: .7rem;
+}
+
+
+/* =====================================================
+   PAYMENT STATUS
+===================================================== */
+
+.payment-status {
+  min-width: 95px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 7px;
+  outline: none;
+  font-size: .7rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.payment-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.payment-paid {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.payment-failed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+
+/* =====================================================
+   REGISTRATION STATUS
+===================================================== */
+
+.registration-status {
+  min-width: 105px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 7px;
+  outline: none;
+  font-size: .7rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.registration-registered {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.registration-cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.view-registration {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.view-registration:hover {
+  color: #2563eb;
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.registration-empty {
+  height: 180px;
+  text-align: center !important;
+  color: #94a3b8 !important;
+}
+
+.registration-empty svg {
+  display: block;
+  margin: 0 auto 8px;
+  font-size: 25px;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.registration-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(2, 6, 23, .6);
+  backdrop-filter: blur(5px);
+}
+
+.registration-modal {
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(2, 6, 23, .25);
+}
+
+.registration-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.registration-modal-header span {
+  color: #94a3b8;
+  font-size: .7rem;
+}
+
+.registration-modal-header h2 {
+  margin: 5px 0 0;
+  color: #0f172a;
+  font-size: 1.3rem;
+}
+
+.registration-modal-header button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.registration-modal-header button:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+
+/* =====================================================
+   DETAILS
+===================================================== */
+
+.registration-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 24px;
+}
+
+.registration-details label {
+  display: block;
+  margin-bottom: 6px;
+  color: #94a3b8;
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.registration-details strong {
+  display: block;
+  color: #334155;
+  font-size: .82rem;
+  font-weight: 500;
+}
+
+.registration-detail-full {
+  grid-column: 1 / -1;
+}
+
+.registration-detail-full p {
+  margin: 0;
+  padding: 12px;
+  border-radius: 9px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: .8rem;
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1050px) {
+
+  .registrations-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .registrations-header {
+    flex-direction: column;
+  }
+
+  .registrations-refresh {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .registrations-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .registrations-card-header {
+    padding: 18px;
+  }
+
+  .registration-filters {
+    flex-direction: column;
+    padding: 15px 18px;
+  }
+
+  .registration-filters select {
+    width: 100%;
+  }
+
+  .registration-details {
+    grid-template-columns: 1fr;
+  }
+
+  .registration-detail-full {
+    grid-column: auto;
+  }
+
+}
