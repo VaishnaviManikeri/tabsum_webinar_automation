@@ -1,44 +1,49 @@
 import axios from 'axios';
 
 
-// =====================================================
-// API BASE URL
-// =====================================================
+// ==================================================
+// API URL
+// ==================================================
 
-const API_BASE_URL =
+export const API_URL =
   import.meta.env.VITE_API_URL ||
   'http://localhost:5000/api';
 
 
-// =====================================================
+// ==================================================
+// BACKEND URL
+// Used for uploaded images
+// ==================================================
+
+const BACKEND_URL =
+  API_URL.replace(/\/api\/?$/, '');
+
+
+// ==================================================
 // AXIOS INSTANCE
-// =====================================================
+// ==================================================
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+
+  baseURL: API_URL,
 
   headers: {
     'Content-Type': 'application/json'
-  },
+  }
 
-  timeout: 15000,
-
-  withCredentials: true
 });
 
 
-// =====================================================
+// ==================================================
 // REQUEST INTERCEPTOR
-// =====================================================
-// Automatically attach admin JWT token to protected APIs
-// =====================================================
+// ==================================================
 
 api.interceptors.request.use(
+
   (config) => {
 
     const token =
       localStorage.getItem('adminToken');
-
 
     if (token) {
 
@@ -47,9 +52,7 @@ api.interceptors.request.use(
 
     }
 
-
     return config;
-
   },
 
   (error) => {
@@ -57,27 +60,46 @@ api.interceptors.request.use(
     return Promise.reject(error);
 
   }
+
 );
 
 
-// =====================================================
+// ==================================================
 // RESPONSE INTERCEPTOR
-// =====================================================
-// Handle expired / invalid admin token
-// =====================================================
+// ==================================================
 
 api.interceptors.response.use(
 
   (response) => {
 
+    // Normalize webinar data
+    if (
+      response.config.url === '/webinar' &&
+      response.data?.data
+    ) {
+
+      response.data.data =
+        normalizeWebinar(
+          response.data.data
+        );
+
+    }
+
     return response;
 
   },
 
+
   (error) => {
 
+    // Admin authentication expired
+    //
+    // Only redirect when an admin token exists.
+    // Public APIs should not redirect users to admin login.
+
     if (
-      error.response?.status === 401
+      error.response?.status === 401 &&
+      localStorage.getItem('adminToken')
     ) {
 
       localStorage.removeItem(
@@ -88,49 +110,259 @@ api.interceptors.response.use(
         'adminData'
       );
 
-
-      // Avoid redirect loop
-      if (
-        window.location.pathname !==
-        '/admin/login'
-      ) {
-
-        window.location.href =
-          '/admin/login';
-
-      }
+      window.location.href =
+        '/admin/login';
 
     }
-
 
     return Promise.reject(error);
 
   }
+
 );
 
 
-// =====================================================
-// WEBINAR API
-// =====================================================
+// ==================================================
+// NORMALIZE WEBINAR
+// ==================================================
 
-export const webinarAPI = {
+const normalizeWebinar = (
+  webinar
+) => {
 
-  // Get current/latest webinar
-  getAll: () =>
-    api.get('/webinar'),
+  if (!webinar) {
+    return null;
+  }
+
+
+  return {
+
+    ...webinar,
+
+    description:
+      webinar.description ||
+      webinar.subtitle,
+
+    backgroundImage:
+      webinar.backgroundImage ||
+      (
+        webinar.background_image
+          ? `${BACKEND_URL}${webinar.background_image}`
+          : null
+      )
+
+  };
 
 };
 
 
-// =====================================================
+// ==================================================
+// WEBINAR API
+// ==================================================
+
+export const webinarAPI = {
+
+  getAll: async () => {
+
+    const response =
+      await api.get(
+        '/webinar'
+      );
+
+
+    const webinar =
+      normalizeWebinar(
+        response.data.data
+      );
+
+
+    return {
+
+      ...response,
+
+      data: {
+
+        ...response.data,
+
+        data:
+          webinar
+            ? [webinar]
+            : []
+
+      }
+
+    };
+
+  }
+
+};
+
+
+// ==================================================
+// REGISTRATION API
+// ==================================================
+
+export const registrationAPI = {
+
+
+  // --------------------------------------------------
+  // PUBLIC REGISTRATION
+  // --------------------------------------------------
+
+  create: async (
+    registrationData
+  ) => {
+
+    const response =
+      await api.post(
+        '/registrations',
+        registrationData
+      );
+
+    return response;
+
+  },
+
+
+  // --------------------------------------------------
+  // GET ALL
+  // ADMIN ONLY
+  // --------------------------------------------------
+
+  getAll: async () => {
+
+    const response =
+      await api.get(
+        '/registrations'
+      );
+
+    return response;
+
+  },
+
+
+  // --------------------------------------------------
+  // GET BY ID
+  // ADMIN ONLY
+  // --------------------------------------------------
+
+  getById: async (id) => {
+
+    const response =
+      await api.get(
+        `/registrations/${id}`
+      );
+
+    return response;
+
+  },
+
+
+  // --------------------------------------------------
+  // GET STATS
+  // ADMIN ONLY
+  // --------------------------------------------------
+
+  getStats: async () => {
+
+    const response =
+      await api.get(
+        '/registrations/stats'
+      );
+
+    return response;
+
+  },
+
+
+  // --------------------------------------------------
+  // UPDATE PAYMENT STATUS
+  // ADMIN ONLY
+  // --------------------------------------------------
+
+  updatePaymentStatus: async (
+    id,
+    payment_status
+  ) => {
+
+    const response =
+      await api.put(
+        `/registrations/${id}/payment`,
+        {
+          payment_status
+        }
+      );
+
+    return response;
+
+  },
+
+
+  // --------------------------------------------------
+  // UPDATE REGISTRATION STATUS
+  // ADMIN ONLY
+  // --------------------------------------------------
+
+  updateRegistrationStatus: async (
+    id,
+    registration_status
+  ) => {
+
+    const response =
+      await api.put(
+        `/registrations/${id}/status`,
+        {
+          registration_status
+        }
+      );
+
+    return response;
+
+  }
+
+};
+
+
+// ==================================================
+// PAYMENT API
+// ==================================================
+
+export const paymentAPI = {
+  createOrder: async (registrationId) => {
+    const response = await api.post(
+      '/payments/create-order',
+      {
+        registrationId
+      }
+    );
+
+    return response;
+  },
+
+  verifyPayment: async ({
+    registrationId,
+    razorpay_payment_id,
+    razorpay_order_id,
+    razorpay_signature
+  }) => {
+    const response = await api.post(
+      '/payments/verify',
+      {
+        registrationId,
+        razorpay_payment_id,
+        razorpay_order_id,
+        razorpay_signature
+      }
+    );
+
+    return response;
+  }
+};
+// ==================================================
 // LEAD API
-// =====================================================
+// ==================================================
 
 export const leadAPI = {
-
-  // ---------------------------------------------------
-  // Get all leads
-  // ---------------------------------------------------
 
   getAll: (params = {}) =>
     api.get(
@@ -141,29 +373,17 @@ export const leadAPI = {
     ),
 
 
-  // ---------------------------------------------------
-  // Get lead statistics
-  // ---------------------------------------------------
-
   getStats: () =>
     api.get(
       '/leads/stats'
     ),
 
 
-  // ---------------------------------------------------
-  // Get single lead
-  // ---------------------------------------------------
-
   getById: (id) =>
     api.get(
       `/leads/${id}`
     ),
 
-
-  // ---------------------------------------------------
-  // Update lead status
-  // ---------------------------------------------------
 
   updateStatus: (
     id,
@@ -179,96 +399,8 @@ export const leadAPI = {
 };
 
 
-// =====================================================
-// REGISTRATION API
-// =====================================================
-
-export const registrationAPI = {
-
-  // ---------------------------------------------------
-  // Create registration
-  // ---------------------------------------------------
-  // Used by public Registration.jsx
-  // ---------------------------------------------------
-
-  create: (data) =>
-    api.post(
-      '/registrations',
-      data
-    ),
-
-
-  // ---------------------------------------------------
-  // Get all registrations
-  // ---------------------------------------------------
-  // Protected admin API
-  // ---------------------------------------------------
-
-  getAll: (params = {}) =>
-    api.get(
-      '/registrations',
-      {
-        params
-      }
-    ),
-
-
-  // ---------------------------------------------------
-  // Get registration statistics
-  // ---------------------------------------------------
-
-  getStats: () =>
-    api.get(
-      '/registrations/stats'
-    ),
-
-
-  // ---------------------------------------------------
-  // Get single registration
-  // ---------------------------------------------------
-
-  getById: (id) =>
-    api.get(
-      `/registrations/${id}`
-    ),
-
-
-  // ---------------------------------------------------
-  // Update payment status
-  // ---------------------------------------------------
-
-  updatePaymentStatus: (
-    id,
-    payment_status
-  ) =>
-    api.put(
-      `/registrations/${id}/payment`,
-      {
-        payment_status
-      }
-    ),
-
-
-  // ---------------------------------------------------
-  // Update registration status
-  // ---------------------------------------------------
-
-  updateRegistrationStatus: (
-    id,
-    registration_status
-  ) =>
-    api.put(
-      `/registrations/${id}/status`,
-      {
-        registration_status
-      }
-    )
-
-};
-
-
-// =====================================================
+// ==================================================
 // DEFAULT EXPORT
-// =====================================================
+// ==================================================
 
 export default api;

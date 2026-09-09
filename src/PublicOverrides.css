@@ -1,4 +1,182 @@
 /* Keep Home as the visual hero; use a tighter type scale everywhere else. */
+.app {
+  --landing-ink: #242238;
+  --landing-muted: #747286;
+  --landing-lavender: #dfd5ee;
+  --landing-lavender-deep: #927ab4;
+  --landing-blue: #b9d9ee;
+  --landing-gold: #c6a568;
+  --landing-line: rgba(78, 66, 104, 0.12);
+  --landing-shadow: 0 22px 55px rgba(76, 63, 104, 0.1);
+  background: linear-gradient(180deg, #fffefd 0%, #f7f4fb 52%, #ffffff 100%);
+}
+
+.app .navbar {
+  background: rgba(255, 254, 253, 0.9);
+  border-bottom: 1px solid rgba(78, 66, 104, 0.08);
+  box-shadow: 0 12px 30px rgba(76, 63, 104, 0.06);
+}
+
+.app .nav-logo a,
+.app .nav-menu li a,
+.app .nav-logo span {
+  color: var(--landing-ink) !important;
+}
+
+.app .nav-logo span,
+.app .nav-menu li a:hover {
+  color: var(--landing-lavender-deep) !important;
+}
+
+.app .nav-menu li a::after {
+  background: var(--landing-gold);
+}
+
+.app .register-btn,
+.app .hero-btn {
+  background: linear-gradient(135deg, #c6b2de 0%, #9a82be 100%) !important;
+  border: 1px solid rgba(146, 122, 180, 0.36);
+  color: #ffffff !important;
+  box-shadow: 0 12px 26px rgba(146, 122, 180, 0.22);
+}
+
+.app .register-btn:hover,
+.app .hero-btn:hover {
+  background: linear-gradient(135deg, #d3c2e6 0%, #a58bc9 100%) !important;
+  box-shadow: 0 16px 32px rgba(146, 122, 180, 0.3);
+}
+
+.app .theme-toggle {
+  border-color: var(--landing-line);
+  background: #ffffff;
+  color: var(--landing-lavender-deep);
+}
+
+.app .hero-section {
+  background: linear-gradient(110deg, #fbf8fc 0%, #f2edf8 58%, #dcecf7 100%);
+  box-shadow: none;
+}
+
+.app .hero-section::before {
+  background: linear-gradient(90deg, rgba(255, 254, 253, 0.97) 0%, rgba(255, 254, 253, 0.76) 43%, rgba(220, 236, 247, 0.28) 100%);
+}
+
+.app .hero-bg {
+  opacity: 1;
+  mix-blend-mode: normal;
+  object-position: center;
+}
+
+.app .hero-content {
+  color: var(--landing-ink);
+}
+
+.app .hero-tag {
+  background: rgba(223, 213, 238, 0.42);
+  border-color: rgba(146, 122, 180, 0.24);
+  color: var(--landing-lavender-deep);
+  box-shadow: none;
+}
+
+.app .tag-icon,
+.app .trust-icon {
+  color: var(--landing-lavender-deep);
+}
+
+.app .hero-series {
+  color: var(--landing-lavender-deep);
+  text-shadow: none;
+}
+
+.app .hero-content h1 {
+  color: var(--landing-ink);
+  text-shadow: none;
+  font-weight: 500;
+}
+
+.app .hero-content h1 span {
+  color: var(--landing-gold);
+}
+
+.app .hero-content h1 span::after {
+  background: var(--landing-gold);
+  opacity: 0.55;
+}
+
+.app .hero-content p,
+.app .hero-text-link,
+.app .trust-badges span {
+  color: var(--landing-ink);
+  text-shadow: none;
+}
+
+.app .hero-text-link::after {
+  background: var(--landing-gold);
+}
+
+.app .floating-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(146, 122, 180, 0.2);
+  box-shadow: var(--landing-shadow);
+}
+
+.app .floating-card::before {
+  background: linear-gradient(90deg, var(--landing-lavender), var(--landing-blue), var(--landing-gold));
+}
+
+.app .card-icon,
+.app .footer-icon {
+  color: var(--landing-lavender-deep);
+}
+
+.app .card-item-highlight {
+  background: linear-gradient(145deg, #fbf5e9, #ffffff);
+}
+
+.app :is(.about-container, .benefits-section, .agenda-section, .testimonials-section, .cta-section, section.speaker-section) {
+  background: transparent;
+}
+
+.app :is(.about-title, .benefits-title, .agenda-title, .testimonials-title, .cta-title, .speaker-title) {
+  color: var(--landing-ink);
+}
+
+.app :is(.subtitle, .about-description, .benefits-description, .agenda-description, .testimonials-description, .cta-description) {
+  color: var(--landing-muted);
+}
+
+.app :is(.webinar-badge, .benefits-badge, .cta-badge) {
+  background: linear-gradient(135deg, #f0eafa, #e8f3fa);
+  color: var(--landing-lavender-deep);
+  box-shadow: 0 8px 20px rgba(146, 122, 180, 0.1);
+}
+
+.app :is(.highlight-text, .about-title .highlight-text, .benefits-title .highlight-text) {
+  background: linear-gradient(135deg, var(--landing-lavender-deep), var(--landing-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.app :is(.benefit-card, .agenda-card, .testimonial-card, .speaker-card) {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: var(--landing-line);
+  box-shadow: var(--landing-shadow);
+}
+
+.app .cta-main-content {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(146, 122, 180, 0.18);
+  box-shadow: var(--landing-shadow);
+}
+
+.app .cta-main-content::before {
+  background: linear-gradient(90deg, var(--landing-lavender), var(--landing-blue), var(--landing-gold), var(--landing-lavender));
+}
+
+.app .footer {
+  background: linear-gradient(180deg, #312b46 0%, #211e34 100%);
+  border-top-color: rgba(198, 165, 104, 0.35);
+}
 .app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) h1 {
   font-size: clamp(1.8rem, 3vw, 2.65rem) !important;
   line-height: 1.14 !important;
@@ -20,6 +198,149 @@
 
 .app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) :is(button, a[class*="btn"], a[class*="button"]) {
   font-size: .82rem !important;
+}
+
+/* Keep every public section usable from phones through wide screens. */
+.app,
+.app * {
+  min-width: 0;
+}
+
+.app img {
+  height: auto;
+}
+
+.app :is(.about-wrapper, .speaker-wrapper, .benefits-wrapper, .agenda-wrapper, .testimonials-wrapper, .cta-wrapper, .container) {
+  width: min(100% - 32px, 1200px);
+}
+
+/* Appearance values saved from the landing-page section editor. */
+.app [data-section-customized="true"] {
+  background-color: var(--section-background-color) !important;
+  color: var(--section-text-color) !important;
+  font-family: var(--section-font-family) !important;
+  font-size: var(--section-font-size);
+}
+
+.app [data-section-customized="true"] :is(h1, h2, h3, h4, h5, h6, p, li, span, a, button) {
+  color: var(--section-text-color) !important;
+  font-family: var(--section-font-family) !important;
+}
+
+.app :is(.about-container, .speaker-section, .benefits-section, .agenda-section, .testimonials-section, .cta-section) {
+  min-height: 0;
+}
+
+.app :is(.about-container, .speaker-section, .benefits-section, .agenda-section, .testimonials-section, .cta-section) :is(.about-wrapper, .speaker-wrapper, .benefits-wrapper, .agenda-wrapper, .testimonials-wrapper, .cta-wrapper) {
+  max-width: 1200px;
+}
+
+@media (max-width: 1024px) {
+  .app :is(.about-container, .speaker-section, .benefits-section, .agenda-section, .testimonials-section, .cta-section) {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .app :is(.about-grid, .two-column-grid, .speaker-main-card, .agenda-content, .cta-content-wrapper) {
+    grid-template-columns: 1fr !important;
+  }
+
+  .app :is(.benefits-grid, .stats-section) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .app :is(.footer-main, .footer-content) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .app .nav-container {
+    padding: 0 16px;
+  }
+
+  .app :is(.about-container, .speaker-section, .benefits-section, .agenda-section, .testimonials-section, .cta-section) {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .app :is(.benefits-grid, .stats-section, .audience-grid, .topics-grid, .outcomes-grid, .problems-grid, .sessions-grid, .detail-grid) {
+    grid-template-columns: 1fr !important;
+  }
+
+  .app :is(.about-header, .speaker-header, .benefits-header, .agenda-header, .testimonials-header) {
+    margin-bottom: 2.5rem;
+  }
+
+  .app :is(.about-title, .speaker-title, .benefits-title, .agenda-title, .testimonials-title, .cta-title) {
+    font-size: clamp(1.8rem, 9vw, 2.6rem) !important;
+  }
+
+  .app :is(.about-description, .benefits-description, .agenda-description, .testimonials-description, .cta-description) {
+    max-width: 100%;
+  }
+
+  .app :is(.day-selector, .agenda-tabs, .testimonial-slider-controls) {
+    max-width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 6px;
+  }
+
+  .app :is(.day-btn, .slider-btn) {
+    flex: 0 0 auto;
+  }
+
+  .app :is(.cta-buttons, .hero-actions, .about-admin-actions) {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .app :is(.cta-primary-btn, .cta-secondary-btn, .hero-btn, .cta-button, .cta-button-primary) {
+    width: 100%;
+    justify-content: center;
+  }
+
+    .app #home {
+      overflow-x: hidden;
+    }
+
+  .app :is(.cta-main-content, .cta-info-cards) {
+    padding: 1.5rem;
+  }
+
+  .app :is(.testimonial-slider, .slider-container, .crm-table-wrapper) {
+    overflow-x: auto;
+  }
+
+  .app :is(.footer-main, .footer-content) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .app :is(.hero-content, .hero-section) {
+    width: 100%;
+  }
+
+  .app .hero-content {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .app .hero-content h1 {
+    font-size: clamp(2rem, 12vw, 2.7rem);
+  }
+
+  .app .floating-card-wrapper {
+    width: calc(100% - 20px);
+  }
+
+  .app :is(.card-footer, .trust-badges) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 /* Explicit CTA contrast: these declarations load last to avoid theme conflicts. */
@@ -49,5 +370,72 @@ html[data-theme="dark"] .app #cta .cta-trust-badges span {
 @media (max-width: 768px) {
   .app :is(#about, #speaker, #benefits, #agenda, #testimonials, #cta) h1 {
     font-size: clamp(1.55rem, 7vw, 2.1rem) !important;
+  }
+}
+
+/* Restore the original Testimonials section presentation. */
+.app #testimonials .testimonials-section {
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  background: #ffffff;
+  border-top: 0;
+}
+
+.app #testimonials .testimonials-wrapper {
+  width: auto;
+  max-width: 1200px;
+}
+
+.app #testimonials .testimonials-header {
+  margin-bottom: 3rem;
+}
+
+.app #testimonials .testimonials-title {
+  color: #0f172a;
+  font-size: 3.5rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.02em;
+}
+
+.app #testimonials .testimonials-subtitle {
+  color: #64748b;
+  font-size: 1.125rem !important;
+}
+
+.app #testimonials .testimonials-badge {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  color: #0369a1;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+}
+
+.app #testimonials .testimonials-underline {
+  display: block;
+}
+
+.app #testimonials .testimonial-card {
+  min-width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  border-radius: 1rem;
+  background: #ffffff;
+  border-color: #bae6fd;
+  box-shadow: 0 8px 30px rgba(14, 165, 233, 0.08);
+}
+
+.app #testimonials .testimonial-content {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app #testimonials .author-avatar,
+.app #testimonials .quote-icon {
+  background: linear-gradient(145deg, #e0f2fe, #f0f9ff);
+  color: #38bdf8;
+  border-color: #bae6fd;
+}
+
+@media (max-width: 768px) {
+  .app #testimonials .testimonials-title {
+    font-size: 2.5rem !important;
   }
 }

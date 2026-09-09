@@ -7,35 +7,32 @@
 }
 
 .hero-section {
-  --hero-image-height: 650px;
+  --hero-image-height: 760px;
   position: relative;
   height: auto;
-  min-height: calc(var(--hero-image-height) + 145px);
+  min-height: calc(var(--hero-image-height) + 190px);
   display: flex;
   align-items: center;
   background: radial-gradient(circle at top, rgba(212,175,106,0.24), transparent 30%),
     linear-gradient(135deg, #1a140f 0%, #100d0a 38%, #1b120d 100%);
-  overflow: hidden;
-  padding: 0 0 145px;
-  box-shadow: inset 0 -60px 120px rgba(6, 4, 2, 0.32);
+  overflow: visible;
+  padding: 0 0 190px;
+  box-shadow: none;
 }
 
 .hero-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(10, 8, 7, 0.7), rgba(10, 8, 7, 0.28), rgba(10, 8, 7, 0.58));
-  z-index: 1;
+  display: none;
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
   width: 100%;
-  height: var(--hero-image-height);
+  height: 100%;
   object-fit: cover;
   object-position: center;
   opacity: 1;
+  mix-blend-mode: normal;
 }
 
 /* Loading State */
@@ -64,6 +61,231 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Fluid hero sizing with no hero-owned scrollbar. */
+.hero-section {
+  height: auto;
+  min-height: clamp(720px, 92vh, 980px);
+  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
+  overscroll-behavior: auto;
+  padding-bottom: clamp(150px, 18vh, 220px);
+}
+
+.hero-bg {
+  height: 100%;
+  max-height: 100%;
+}
+
+.hero-content {
+  width: min(92%, 1180px);
+  min-height: 0;
+  padding-top: clamp(90px, 12vh, 150px);
+  padding-bottom: clamp(70px, 10vh, 120px);
+}
+
+.floating-card-wrapper {
+  width: min(92%, 1180px);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: clamp(820px, 112vh, 1080px);
+    padding-bottom: clamp(190px, 25vh, 280px);
+  }
+
+  .hero-content {
+    width: calc(100% - 32px);
+    padding-top: clamp(78px, 12vh, 110px);
+    padding-bottom: 70px;
+  }
+
+  .floating-card-wrapper {
+    width: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-section {
+    min-height: clamp(900px, 125vh, 1160px);
+  }
+
+  .hero-content {
+    width: calc(100% - 24px);
+  }
+
+  .floating-card-wrapper {
+    width: calc(100% - 16px);
+  }
+}
+
+/* Keep webinar details below the subtitle in normal page flow. */
+.hero-section {
+  overflow: visible;
+}
+
+.floating-card-wrapper {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  width: min(90%, 1180px);
+  margin: 0 auto 28px;
+  transform: none;
+  animation: none;
+}
+
+.floating-card {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+@media (max-width: 1200px) {
+  .floating-card {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-card-wrapper {
+    width: 92%;
+  }
+
+  .floating-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  .floating-card-wrapper {
+    width: calc(100% - 24px);
+  }
+
+  .floating-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive Home section: page-flow layout with no internal scrolling. */
+.hero-section {
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: visible;
+  overscroll-behavior: auto;
+}
+
+.hero-content,
+.floating-card-wrapper,
+.floating-card,
+.card-footer,
+.card-item,
+.card-item > div {
+  min-width: 0;
+}
+
+.hero-content h1,
+.hero-content p,
+.card-item p,
+.footer-item {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 900px;
+    padding-bottom: 230px;
+  }
+
+  .hero-content {
+    width: min(92%, 620px);
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .floating-card-wrapper {
+    width: min(94%, 620px);
+  }
+
+  .floating-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: 980px;
+    padding-bottom: 260px;
+  }
+
+  .hero-content {
+    width: calc(100% - 32px);
+    padding-top: 72px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2rem, 11vw, 2.7rem);
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .trust-badges {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .floating-card-wrapper {
+    width: calc(100% - 20px);
+  }
+
+  .floating-card {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 14px 12px;
+  }
+
+  .card-item {
+    padding: 7px 8px;
+  }
+
+  .card-item p {
+    font-size: 11px;
+  }
+
+  .card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-content {
+    width: calc(100% - 24px);
+  }
+
+  .floating-card-wrapper {
+    width: calc(100% - 12px);
+  }
+
+  .card-item p {
+    font-size: 10px;
   }
 }
 

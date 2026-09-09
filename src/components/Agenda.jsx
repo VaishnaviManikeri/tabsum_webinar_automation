@@ -1,7 +1,7 @@
 // components/Agenda.jsx
 import { useEffect, useRef, useState } from 'react';
 import './Agenda.css';
-import { useSectionContent } from '../hooks/useSectionContent';
+import { getSectionStyle, useSectionContent } from '../hooks/useSectionContent';
 import { sectionDefaults } from '../contentDefaults';
 import { Link } from 'react-router-dom';
 import {
@@ -47,7 +47,7 @@ const Agenda = () => {
   }, []);
 
   return (
-    <section className="agenda-section">
+    <section className="agenda-section" data-section-customized="true" style={getSectionStyle(sectionContent)}>
       {/* Animated Background */}
       <div className="agenda-bg-animation">
         <div className="agenda-sphere sphere-1"></div>

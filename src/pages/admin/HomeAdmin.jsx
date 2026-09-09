@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 import api from '../../api';
 import './HomeAdmin.css';
+import AppearanceControls from './AppearanceControls';
+
+const homeAppearanceDefaults = {
+  textColor: '#ffffff',
+  backgroundColor: '#0b4f85',
+  fontFamily: 'Inter',
+  fontSize: '16'
+};
 
 const HomeAdmin = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +25,13 @@ const HomeAdmin = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [webinarData, setWebinarData] = useState(null);
+  const [appearance, setAppearance] = useState(() => {
+    try {
+      return { ...homeAppearanceDefaults, ...JSON.parse(localStorage.getItem('homeAppearance') || '{}') };
+    } catch {
+      return homeAppearanceDefaults;
+    }
+  });
 
   useEffect(() => {
     fetchWebinarData();
@@ -69,6 +84,7 @@ const HomeAdmin = () => {
       });
 
       if (response.data.success) {
+        localStorage.setItem('homeAppearance', JSON.stringify(appearance));
         setMessage({ type: 'success', text: 'Webinar data updated successfully!' });
         fetchWebinarData();
         setImageFile(null);
@@ -231,6 +247,8 @@ const HomeAdmin = () => {
               </div>
             )}
           </div>
+
+          <AppearanceControls value={appearance} onChange={setAppearance} />
 
           <button type="submit" className="submit-btn" disabled={loading}>
             {loading ? 'Updating...' : 'Update Webinar Data'}

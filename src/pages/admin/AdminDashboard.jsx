@@ -22,6 +22,7 @@ import SectionAdmin from './SectionAdmin';
 import { sectionDefaults } from '../../contentDefaults';
 import TypographyAdmin from './TypographyAdmin';
 import './AdminDashboard.css';
+import './AdminTheme.css';
 import CRMDashboard from './CRMDashboard';
 import RegistrationsAdmin from './RegistrationsAdmin';
 const AdminDashboard = () => {
@@ -80,24 +81,6 @@ const AdminDashboard = () => {
           <NavLink to="/admin/dashboard/typography" onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaFont /><span>Typography</span></NavLink>
           
         </nav>
-        <div className="sidebar-label">
-  Webinar Management
-</div>
-
-<nav className="sidebar-links">
-
-  <NavLink
-    to="/admin/dashboard/crm"
-    onClick={() => setSidebarOpen(false)}
-    className={({ isActive }) =>
-      `sidebar-link ${isActive ? 'active' : ''}`
-    }
-  >
-    <FaUsers />
-    <span>CRM Dashboard</span>
-  </NavLink>
-
-</nav>
         <div className="sidebar-footer">
           <div className="admin-profile"><div className="profile-avatar">A</div><div><strong>Administrator</strong><span>Content manager</span></div></div>
           <button onClick={handleLogout} className="sidebar-logout"><FaSignOutAlt /><span>Sign out</span></button>

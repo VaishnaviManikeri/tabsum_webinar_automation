@@ -1,7 +1,7 @@
 // components/Speaker.jsx
 import { useEffect, useRef } from 'react';
 import './Speaker.css';
-import { useSectionContent } from '../hooks/useSectionContent';
+import { getSectionStyle, useSectionContent } from '../hooks/useSectionContent';
 import { sectionDefaults } from '../contentDefaults';
 import speakerImage from '/assets/speaker.png'; // Update this path to your actual image
 import {
@@ -21,6 +21,11 @@ import {
 const Speaker = () => {
   const sectionContent = useSectionContent('speaker', sectionDefaults.speaker);
   const cardsRef = useRef([]);
+  const speakerName = sectionContent.name || 'Tabbasum Mullani';
+  const speakerRole = sectionContent.role || 'Creator of Abundance Crossroad™';
+  const speakerQuote = sectionContent.quote || 'Helping people stop repeating the same results and start consciously creating the future they truly want.';
+  const speakerBio = sectionContent.bio || 'Tabbasum Mullani is the creator of Abundance Crossroad™ framework and founder of Infinite Blessing. She works with entrepreneurs, executives, business owners and professionals who want greater clarity, stronger decision-making and a more purposeful life.';
+  const speakerImageUrl = sectionContent.image || speakerImage;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,7 +47,7 @@ const Speaker = () => {
   }, []);
 
   return (
-    <section className="speaker-section">
+    <section className="speaker-section" data-section-customized="true" style={getSectionStyle(sectionContent)}>
       {/* Animated Background */}
       <div className="speaker-bg-animation">
         <div className="speaker-sphere sphere-1"></div>
@@ -64,7 +69,7 @@ const Speaker = () => {
             <div className="underline-glow"></div>
           </div>
           <p className="speaker-subtitle">
-            Discover the visionary behind the Abundance Crossroad™ framework
+            {sectionContent.subtitle}
           </p>
         </div>
 
@@ -77,9 +82,12 @@ const Speaker = () => {
             <div className="speaker-image-wrapper">
               <div className="speaker-image">
                 <img 
-                  src={speakerImage} 
-                  alt="Tabbasum Mullani - Speaker" 
+                  src={speakerImageUrl}
+                  alt={`${speakerName} - Speaker`}
                   className="speaker-img"
+                  onError={(event) => {
+                    event.currentTarget.src = speakerImage;
+                  }}
                 />
                 <div className="image-ring"></div>
               </div>
@@ -90,32 +98,17 @@ const Speaker = () => {
             </div>
 
             <div className="speaker-info">
-              <h2 className="speaker-name">Tabbasum Mullani</h2>
-              <p className="speaker-role">Creator of Abundance Crossroad™</p>
+              <h2 className="speaker-name">{speakerName}</h2>
+              <p className="speaker-role">{speakerRole}</p>
               
               <div className="speaker-quote">
                 <FaQuoteLeft className="quote-icon left" />
-                <p>
-                  Helping people stop repeating the same results and start 
-                  consciously creating the future they truly want.
-                </p>
+                <p>{speakerQuote}</p>
                 <FaQuoteRight className="quote-icon right" />
               </div>
 
               <div className="speaker-bio">
-                <p>
-                  Tabbasum Mullani is the creator of Abundance Crossroad™ framework 
-                  and founder of Infinite Blessing. She works with entrepreneurs, 
-                  executives, business owners and professionals who want greater 
-                  clarity, stronger decision-making and a more purposeful life.
-                </p>
-                <p>
-                  Through her proprietary approach, she helps clients uncover the 
-                  hidden patterns influencing their most important decisions, enabling 
-                  them to move forward with greater confidence, alignment and intention. 
-                  Her mission is to help people stop repeating the same results and 
-                  start consciously creating the future they truly want.
-                </p>
+                <p>{speakerBio}</p>
               </div>
 
               <div className="speaker-social">

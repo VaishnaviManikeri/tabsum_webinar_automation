@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../../api';
 import './HomeAdmin.css';
 import './AboutAdmin.css';
+import AppearanceControls from './AppearanceControls';
 
 const emptyForm = {
   badge: 'The Crossroad 2026',
@@ -13,7 +14,11 @@ const emptyForm = {
   topics: [], outcomes: [], audience: [], problems: [], notSuitable: [],
   ctaTitle: 'What could one better decision make possible?',
   ctaText: 'Join us at the Abundance Crossroad™ and discover the path to clarity, confidence, and success.',
-  ctaButton: 'Enter the Crossroad'
+  ctaButton: 'Enter the Crossroad',
+  textColor: '#0f172a',
+  backgroundColor: '#ffffff',
+  fontFamily: 'Inter',
+  fontSize: '16'
 };
 
 const listFields = ['topics', 'outcomes', 'audience', 'problems', 'notSuitable'];
@@ -100,6 +105,7 @@ const AboutAdmin = () => {
               <textarea id={name} name={name} rows="6" value={(form[name] || []).join('\n')} onChange={handleChange} />
             </div>
           ))}
+          <AppearanceControls value={form} onChange={appearance => setForm(current => ({ ...current, ...appearance }))} />
           <div className="about-admin-actions">
             <button className="submit-btn" disabled={loading}>{loading ? 'Saving...' : recordId ? 'Update About Page' : 'Create About Page'}</button>
             {recordId && <button type="button" className="delete-about-btn" onClick={handleDelete}>Delete Content</button>}

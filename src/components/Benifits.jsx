@@ -1,7 +1,7 @@
 // components/Benefits.jsx
 import { useEffect, useRef } from 'react';
 import './Benefits.css';
-import { useSectionContent } from '../hooks/useSectionContent';
+import { getSectionStyle, useSectionContent } from '../hooks/useSectionContent';
 import { sectionDefaults } from '../contentDefaults';
 import { Link } from 'react-router-dom';
 import {
@@ -44,7 +44,7 @@ const Benefits = () => {
   }, []);
 
   return (
-    <section className="benefits-section">
+    <section className="benefits-section" data-section-customized="true" style={getSectionStyle(sectionContent)}>
       {/* Animated Background */}
       <div className="benefits-bg-animation">
         <div className="benefits-sphere sphere-1"></div>

@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./Home.css";
 import api from '../api';
+import { getSectionStyle } from '../hooks/useSectionContent';
 
 import {
   FaCalendarAlt,
   FaClock,
-  FaGlobe,
   FaVideo,
   FaRupeeSign,
+  FaGift,
   FaArrowRight,
   FaPlayCircle,
   FaUsers,
@@ -18,6 +19,13 @@ import {
 
 const Home = () => {
   const [webinarData, setWebinarData] = useState(null);
+  const [appearance] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('homeAppearance') || '{}');
+    } catch {
+      return {};
+    }
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -88,7 +96,7 @@ const Home = () => {
     : data.background_image || '/assets/h11.png';
 
   return (
-    <section className="hero-section">
+    <section className="hero-section" data-section-customized="true" style={getSectionStyle({ ...appearance, backgroundColor: appearance.backgroundColor || '#0b4f85', textColor: appearance.textColor || '#ffffff' })}>
       <img 
         src={backgroundImageUrl} 
         alt="Webinar Background" 
@@ -109,6 +117,69 @@ const Home = () => {
         </h1>
 
         <p>{data.subtitle}</p>
+
+        <div className="floating-card-wrapper">
+          <div className="floating-card">
+            <div className="card-item">
+              <div className="card-icon">
+                <FaCalendarAlt />
+              </div>
+              <div>
+                <h4>Date</h4>
+                <p>{data.date}</p>
+              </div>
+            </div>
+
+            <div className="card-item">
+              <div className="card-icon">
+                <FaClock />
+              </div>
+              <div>
+                <h4>Duration</h4>
+                <p>{data.duration}</p>
+              </div>
+            </div>
+
+            <div className="card-item">
+              <div className="card-icon">
+                <FaVideo />
+              </div>
+              <div>
+                <h4>Platform</h4>
+                <p>{data.platform}</p>
+              </div>
+            </div>
+
+            <div className="card-item card-item-highlight">
+              <div className="card-icon price-icon">
+                <FaRupeeSign />
+              </div>
+              <div>
+                <h4>Fees</h4>
+                <p>
+                  ₹{data.price} 
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="card-footer">
+            <div className="footer-item">
+              <FaUsers className="footer-icon" />
+              <span>Limited Seats: <strong>Only 100 Spots</strong></span>
+            </div>
+            <div className="footer-divider"></div>
+            <div className="footer-item">
+              <FaStar className="footer-icon star-icon" />
+              <span>Rated <strong>4.9/5</strong> by 500+ Attendees</span>
+            </div>
+            <div className="footer-divider"></div>
+            <div className="footer-item">
+              <span className="bonus-tag"><FaGift aria-hidden="true" /> Bonus</span>
+              <span>Free E-Book Included</span>
+            </div>
+          </div>
+        </div>
 
         <Link to="/register" className="hero-btn">
           Reserve My Seat
@@ -131,88 +202,6 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="floating-card-wrapper">
-        <div className="floating-card">
-          <div className="card-item">
-            <div className="card-icon">
-              <FaCalendarAlt />
-            </div>
-            <div>
-              <h4>Date</h4>
-              <p>{data.date}</p>
-            </div>
-          </div>
-
-          <div className="card-item">
-            <div className="card-icon">
-              <FaClock />
-            </div>
-            <div>
-              <h4>Time</h4>
-              <p>{data.time}</p>
-            </div>
-          </div>
-
-          <div className="card-item">
-            <div className="card-icon">
-              <FaClock />
-            </div>
-            <div>
-              <h4>Duration</h4>
-              <p>{data.duration}</p>
-            </div>
-          </div>
-
-          <div className="card-item">
-            <div className="card-icon">
-              <FaGlobe />
-            </div>
-            <div>
-              <h4>Language</h4>
-              <p>{data.language}</p>
-            </div>
-          </div>
-
-          <div className="card-item">
-            <div className="card-icon">
-              <FaVideo />
-            </div>
-            <div>
-              <h4>Platform</h4>
-              <p>{data.platform}</p>
-            </div>
-          </div>
-
-          <div className="card-item card-item-highlight">
-            <div className="card-icon price-icon">
-              <FaRupeeSign />
-            </div>
-            <div>
-              <h4>Price</h4>
-              <p>
-                ₹{data.price} <span className="price-tag">Only</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card-footer">
-          <div className="footer-item">
-            <FaUsers className="footer-icon" />
-            <span>Limited Seats: <strong>Only 100 Spots</strong></span>
-          </div>
-          <div className="footer-divider"></div>
-          <div className="footer-item">
-            <FaStar className="footer-icon star-icon" />
-            <span>Rated <strong>4.9/5</strong> by 500+ Attendees</span>
-          </div>
-          <div className="footer-divider"></div>
-          <div className="footer-item">
-            <span className="bonus-tag">🎁 Bonus</span>
-            <span>Free E-Book Included</span>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };

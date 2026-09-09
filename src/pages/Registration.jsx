@@ -14,8 +14,13 @@ import './Registration.css';
 
 import {
   registrationAPI,
-  webinarAPI
+  webinarAPI,
+  paymentAPI
 } from '../api';
+
+// Local-only payment test mode. Keep this false/undefined in production.
+const RAZORPAY_MOCK_MODE =
+  import.meta.env.VITE_RAZORPAY_MOCK_MODE === 'true';
 
 
 const Registration = () => {
@@ -36,22 +41,19 @@ const Registration = () => {
   const [webinar, setWebinar] =
     useState(null);
 
+  // Stores the registration created in database
+  const [registrationId, setRegistrationId] =
+    useState(null);
 
   const [formData, setFormData] = useState({
-
     firstName: '',
     lastName: '',
-
     email: '',
     phone: '',
-
     city: '',
     role: '',
-
     goal: '',
-
     consent: false
-
   });
 
 
@@ -68,10 +70,8 @@ const Registration = () => {
         const response =
           await webinarAPI.getAll();
 
-
         const webinarData =
           response.data?.data?.[0];
-
 
         if (webinarData) {
 
@@ -114,16 +114,466 @@ const Registration = () => {
 
     setFormData(
       previous => ({
-
         ...previous,
 
         [name]:
           type === 'checkbox'
             ? checked
             : value
-
       })
     );
+
+  };
+
+
+  // ==================================================
+  // OPEN RAZORPAY CHECKOUT
+  // ==================================================
+
+  const openRazorpayCheckout = async ({
+    registrationId,
+    customer
+  }) => {
+
+    try {
+
+      // ----------------------------------------------
+      // Create Razorpay order
+      // ----------------------------------------------
+
+      const response =
+        await paymentAPI.createOrder(
+          registrationId
+        );
+
+
+      console.log(
+        'Create order response:',
+        response
+      );
+
+
+      const paymentData =
+        response?.data?.data;
+
+
+      if (
+        !paymentData ||
+        !paymentData.orderId
+      ) {
+
+        throw new Error(
+          response?.data?.message ||
+          'Unable to create payment order.'
+        );
+
+      }
+
+
+      // ----------------------------------------------
+      // LOCAL MOCK PAYMENT E2E
+      // ----------------------------------------------
+      // The backend mock mode creates a fake Razorpay order.
+      // A real Razorpay Checkout window cannot process that fake
+      // order, so local E2E testing must call the same verification
+      // API directly with the backend's mock payment values.
+      // This branch is controlled only by VITE_RAZORPAY_MOCK_MODE
+      // and is disabled by default in production.
+      // ----------------------------------------------
+
+      if (RAZORPAY_MOCK_MODE) {
+        try {
+          const mockPaymentId =
+            `pay_mock_${Date.now()}`;
+
+          console.log(
+            'RAZORPAY MOCK FRONTEND PAYMENT:',
+            {
+              registrationId,
+              paymentId: mockPaymentId,
+              orderId: paymentData.orderId
+            }
+          );
+
+          const verifyResponse =
+            await paymentAPI.verifyPayment({
+              registrationId,
+              razorpay_payment_id:
+                mockPaymentId,
+              razorpay_order_id:
+                paymentData.orderId,
+              razorpay_signature:
+                'MOCK_SIGNATURE'
+            });
+
+          console.log(
+            'Mock payment verification response:',
+            verifyResponse
+          );
+
+          const verificationData =
+            verifyResponse?.data?.data;
+
+          if (
+            verifyResponse?.data?.success &&
+            verificationData?.status === 'paid'
+          ) {
+            sessionStorage.removeItem(
+              'razorpayPaymentResponse'
+            );
+
+            setSubmitted(true);
+            setLoading(false);
+
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+
+            return;
+          }
+
+          throw new Error(
+            verifyResponse?.data?.message ||
+            'Mock payment verification failed.'
+          );
+        } catch (error) {
+          console.error(
+            'Mock payment verification error:',
+            error
+          );
+
+          setLoading(false);
+          setError(
+            error?.response?.data?.message ||
+            error?.message ||
+            'Mock payment verification failed.'
+          );
+
+          return;
+        }
+      }
+
+      // ----------------------------------------------
+      // Check Razorpay Checkout
+      // ----------------------------------------------
+
+      if (
+        typeof window.Razorpay !==
+        'function'
+      ) {
+
+        throw new Error(
+          'Razorpay Checkout is not loaded. Please refresh the page and try again.'
+        );
+
+      }
+
+
+      // ----------------------------------------------
+      // Razorpay Options
+      // ----------------------------------------------
+
+      const options = {
+
+        key:
+          paymentData.keyId,
+
+        amount:
+          paymentData.amount,
+
+        currency:
+          paymentData.currency || 'INR',
+
+        name:
+          'The Abundance Crossroad™',
+
+        description:
+          '2-Day Webinar Experience',
+
+        order_id:
+          paymentData.orderId,
+
+
+        // ------------------------------------------
+        // Customer information
+        // ------------------------------------------
+
+        prefill: {
+
+          name:
+            `${customer.firstName} ${customer.lastName}`,
+
+          email:
+            customer.email,
+
+          contact:
+            customer.phone
+
+        },
+
+
+        // ------------------------------------------
+        // Notes
+        // ------------------------------------------
+
+        notes: {
+
+          registration_id:
+            String(registrationId),
+
+          webinar:
+            webinar?.title ||
+            'The Abundance Crossroad™'
+
+        },
+
+
+        // ------------------------------------------
+        // Theme
+        // ------------------------------------------
+
+        theme: {
+
+          color: '#00adb5'
+
+        },
+
+
+        // ==========================================
+        // PAYMENT SUCCESS HANDLER
+        // ==========================================
+
+        handler: async (razorpayResponse) => {
+
+          try {
+
+            console.log(
+              'Razorpay payment response:',
+              razorpayResponse
+            );
+
+
+            setLoading(true);
+
+            setError('');
+
+
+            // --------------------------------------
+            // Validate Razorpay response
+            // --------------------------------------
+
+            if (
+              !razorpayResponse
+                ?.razorpay_payment_id ||
+              !razorpayResponse
+                ?.razorpay_order_id ||
+              !razorpayResponse
+                ?.razorpay_signature
+            ) {
+
+              throw new Error(
+                'Incomplete payment response received from Razorpay.'
+              );
+
+            }
+
+
+            // --------------------------------------
+            // Send payment details to backend
+            // --------------------------------------
+
+            const verifyResponse =
+              await paymentAPI.verifyPayment({
+
+                registrationId:
+
+                  registrationId,
+
+                razorpay_payment_id:
+
+                  razorpayResponse
+                    .razorpay_payment_id,
+
+                razorpay_order_id:
+
+                  razorpayResponse
+                    .razorpay_order_id,
+
+                razorpay_signature:
+
+                  razorpayResponse
+                    .razorpay_signature
+
+              });
+
+
+            console.log(
+              'Payment verification response:',
+              verifyResponse
+            );
+
+
+            const verificationData =
+              verifyResponse?.data?.data;
+
+
+            // --------------------------------------
+            // Check verification result
+            // --------------------------------------
+
+            if (
+              verifyResponse?.data?.success &&
+              verificationData?.status === 'paid'
+            ) {
+
+              // Remove old temporary payment data
+              sessionStorage.removeItem(
+                'razorpayPaymentResponse'
+              );
+
+
+              // Payment is genuinely verified
+              setSubmitted(true);
+
+              setLoading(false);
+
+
+              // Scroll to success section
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+
+
+              return;
+
+            }
+
+
+            // --------------------------------------
+            // Verification failed
+            // --------------------------------------
+
+            throw new Error(
+              verifyResponse?.data?.message ||
+              'Payment verification failed.'
+            );
+
+          } catch (error) {
+
+            console.error(
+              'Payment verification error:',
+              error
+            );
+
+
+            setLoading(false);
+
+
+            setError(
+              error?.response?.data?.message ||
+              error?.message ||
+              'Payment was completed, but verification failed. Please contact support.'
+            );
+
+          }
+
+        },
+
+
+        // ==========================================
+        // PAYMENT WINDOW CLOSED
+        // ==========================================
+
+        modal: {
+
+          ondismiss: () => {
+
+            console.log(
+              'Razorpay payment window closed.'
+            );
+
+
+            setLoading(false);
+
+
+            setError(
+              'Payment window was closed. Your registration is saved, but payment is still pending.'
+            );
+
+          }
+
+        },
+
+
+        // ==========================================
+        // PAYMENT FAILED
+        // ==========================================
+
+        callback_url: undefined
+
+      };
+
+
+      // ----------------------------------------------
+      // Create Razorpay instance
+      // ----------------------------------------------
+
+      const razorpay =
+        new window.Razorpay(options);
+
+
+      // ----------------------------------------------
+      // Razorpay payment failed event
+      // ----------------------------------------------
+
+      razorpay.on(
+        'payment.failed',
+        (response) => {
+
+          console.error(
+            'Razorpay payment failed:',
+            response
+          );
+
+
+          setLoading(false);
+
+
+          setError(
+            response?.error?.description ||
+            'Payment failed. Please try again.'
+          );
+
+        }
+      );
+
+
+      // ----------------------------------------------
+      // Open Razorpay
+      // ----------------------------------------------
+
+      razorpay.open();
+
+    } catch (error) {
+
+      console.error(
+        'Razorpay checkout error:',
+        error
+      );
+
+
+      setLoading(false);
+
+
+      setError(
+        error?.response?.data?.message ||
+        error?.message ||
+        'Unable to open payment gateway. Please try again.'
+      );
+
+    }
 
   };
 
@@ -138,13 +588,27 @@ const Registration = () => {
 
 
     setError('');
+
     setLoading(true);
 
 
     try {
 
       // ----------------------------------------------
-      // Send registration to backend
+      // Make sure webinar exists
+      // ----------------------------------------------
+
+      if (!webinar?.id) {
+
+        throw new Error(
+          'Webinar information is not available. Please refresh the page and try again.'
+        );
+
+      }
+
+
+      // ----------------------------------------------
+      // Create registration
       // ----------------------------------------------
 
       const response =
@@ -174,11 +638,8 @@ const Registration = () => {
           consent:
             formData.consent,
 
-          // If webinar exists,
-          // send its ID.
-
           webinarId:
-            webinar?.id || null,
+            webinar.id,
 
           source:
             'Website'
@@ -186,32 +647,93 @@ const Registration = () => {
         });
 
 
+      console.log(
+        'Registration response:',
+        response
+      );
+
+
       // ----------------------------------------------
-      // Check response
+      // Check registration response
       // ----------------------------------------------
 
-      if (response.data?.success) {
+      if (
+        !response?.data?.success
+      ) {
 
-        setSubmitted(true);
-
-
-        window.scrollTo({
-
-          top: 0,
-
-          behavior: 'smooth'
-
-        });
-
-      } else {
-
-        setError(
-          response.data?.message ||
+        throw new Error(
+          response?.data?.message ||
           'Registration failed.'
         );
 
       }
 
+
+      // ----------------------------------------------
+      // Get registration ID
+      // ----------------------------------------------
+
+      const createdRegistration =
+        response?.data?.data;
+
+
+      const createdRegistrationId =
+        createdRegistration?.id ||
+        createdRegistration?.registrationId ||
+        createdRegistration?.registration_id ||
+        response?.data?.registrationId;
+
+
+      if (!createdRegistrationId) {
+
+        console.error(
+          'Registration response does not contain ID:',
+          response
+        );
+
+
+        throw new Error(
+          'Registration was created, but registration ID was not received.'
+        );
+
+      }
+
+
+      // ----------------------------------------------
+      // Save registration ID
+      // ----------------------------------------------
+
+      setRegistrationId(
+        createdRegistrationId
+      );
+
+
+      // ----------------------------------------------
+      // Open Razorpay
+      // ----------------------------------------------
+
+      await openRazorpayCheckout({
+
+        registrationId:
+          createdRegistrationId,
+
+        customer: {
+
+          firstName:
+            formData.firstName,
+
+          lastName:
+            formData.lastName,
+
+          email:
+            formData.email,
+
+          phone:
+            formData.phone
+
+        }
+
+      });
 
     } catch (error) {
 
@@ -222,11 +744,9 @@ const Registration = () => {
 
 
       setError(
-
-        error.response?.data?.message ||
-
+        error?.response?.data?.message ||
+        error?.message ||
         'Something went wrong. Please try again.'
-
       );
 
     } finally {
@@ -297,6 +817,7 @@ const Registration = () => {
           to="/"
           className="registration-back"
         >
+
           <FaArrowLeft />
 
           Back to experience
@@ -461,23 +982,25 @@ const Registration = () => {
 
 
               <span>
-                Registration received
+                Registration & Payment Confirmed
               </span>
 
 
               <h2>
-                Your place is being held.
+                Your place is confirmed.
               </h2>
 
 
               <p>
 
-                Your registration has been
-                successfully received.
+                Your registration and payment have
+                been successfully verified.
 
-                We will use your registered
-                contact details for webinar
-                communication and session updates.
+                <br />
+
+                We will use your registered contact
+                details for webinar communication,
+                session updates and joining instructions.
 
               </p>
 
@@ -495,8 +1018,9 @@ const Registration = () => {
 
           ) : (
 
-
             <>
+
+
               {/* =================================================
                   FORM HEADER
               ================================================= */}
@@ -532,8 +1056,10 @@ const Registration = () => {
                     marginBottom: '18px',
                     padding: '12px 14px',
                     borderRadius: '12px',
-                    background: 'rgba(220, 38, 38, 0.12)',
-                    border: '1px solid rgba(248, 113, 113, 0.35)',
+                    background:
+                      'rgba(220, 38, 38, 0.12)',
+                    border:
+                      '1px solid rgba(248, 113, 113, 0.35)',
                     color: '#fecaca',
                     fontSize: '0.9rem'
                   }}
@@ -744,23 +1270,28 @@ const Registration = () => {
                 </label>
 
 
-                {/* SUBMIT */}
+                {/* =================================================
+                    SUBMIT / PAYMENT
+                ================================================= */}
 
                 <button
                   className="registration-submit"
                   type="submit"
                   disabled={loading}
                   style={{
-                    opacity: loading ? 0.7 : 1,
-                    cursor: loading
-                      ? 'not-allowed'
-                      : 'pointer'
+                    opacity:
+                      loading ? 0.7 : 1,
+
+                    cursor:
+                      loading
+                        ? 'not-allowed'
+                        : 'pointer'
                   }}
                 >
 
                   {loading
-                    ? 'Submitting...'
-                    : 'Reserve my place'
+                    ? 'Processing...'
+                    : 'Proceed to secure payment — ₹249'
                   }
 
 
@@ -771,14 +1302,17 @@ const Registration = () => {
                 </button>
 
 
-                {/* SECURITY MESSAGE */}
+                {/* =================================================
+                    SECURITY MESSAGE
+                ================================================= */}
 
                 <p className="registration-secure">
 
                   <FaLock />
 
-                  Your information is securely
-                  submitted to our registration system.
+                  Your registration is securely
+                  submitted and payment is processed
+                  through Razorpay.
 
                 </p>
 

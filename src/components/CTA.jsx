@@ -1,7 +1,7 @@
 // components/CTA.jsx
 import { useEffect, useRef } from 'react';
 import './CTA.css';
-import { useSectionContent } from '../hooks/useSectionContent';
+import { getSectionStyle, useSectionContent } from '../hooks/useSectionContent';
 import { sectionDefaults } from '../contentDefaults';
 import { Link } from 'react-router-dom';
 import {
@@ -16,6 +16,7 @@ import {
   FaPhone,
   FaStar,
   FaRocket,
+  FaBolt,
 } from 'react-icons/fa';
 
 const CTA = () => {
@@ -42,7 +43,7 @@ const CTA = () => {
   }, []);
 
   return (
-    <section className="cta-section">
+    <section className="cta-section" data-section-customized="true" style={getSectionStyle(sectionContent)}>
       {/* Animated Background */}
       <div className="cta-bg-animation">
         <div className="cta-sphere sphere-1"></div>
@@ -172,7 +173,7 @@ const CTA = () => {
         {/* Urgency Banner */}
         <div className="urgency-banner">
           <div className="urgency-content">
-            <span className="urgency-icon">⚡</span>
+            <span className="urgency-icon"><FaBolt aria-hidden="true" /></span>
             <span className="urgency-text">
               <strong>Early Bird Offer:</strong> Save ₹1500 - Offer Ends Soon!
             </span>

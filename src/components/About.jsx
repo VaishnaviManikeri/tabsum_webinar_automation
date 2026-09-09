@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import api from '../api';
 import { Link } from 'react-router-dom';
 import './About.css';
+import { getSectionStyle } from '../hooks/useSectionContent';
 
 const defaultAbout = {
   badge: 'The Crossroad 2026', title: 'About the Experience',
@@ -53,7 +54,7 @@ const About = () => {
   }, []);
 
   return (
-    <div className="about-container">
+    <div className="about-container" data-section-customized="true" style={getSectionStyle(aboutData)}>
       {/* Animated Background */}
       <div className="bg-animation">
         <div className="gradient-sphere sphere-1"></div>

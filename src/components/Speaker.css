@@ -183,7 +183,6 @@
 .speaker-main-card {
   background: #ffffff;
   border-radius: 2rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 20px 60px rgba(0,0,0,0.04);
   border: 1px solid #f1f5f9;
   padding: 2.5rem;
   margin-bottom: 3rem;
@@ -191,7 +190,8 @@
   opacity: 0;
   transform: translateY(40px);
   position: relative;
-  background: linear-gradient(145deg, #ffffff, #fafcff);
+  background: #ffffff;
+  background-image: none;
 }
 
 .speaker-main-card.visible {
@@ -210,6 +210,7 @@
   grid-template-columns: 280px 1fr;
   gap: 3rem;
   align-items: start;
+  background: #ffffff !important;
 }
 
 /* Speaker Image */
