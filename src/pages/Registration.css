@@ -397,15 +397,15 @@
   }
 }
 
-/* Match the landing page's light lavender and soft-gold visual system. */
+/* Match the landing page's pastel-blue and soft-gold visual system. */
 .registration-page {
-  background: linear-gradient(135deg, #fcfbff 0%, #f4effa 54%, #edf6fc 100%);
-  color: #242238;
+  background: linear-gradient(135deg, #fffefd 0%, #f3fafd 54%, #edf6fc 100%);
+  color: #1f2937;
   padding-right: 0;
 }
 
 .registration-orb-one {
-  background: #c6b2de;
+  background: #9bd4e7;
   opacity: 0.2;
 }
 
@@ -415,7 +415,7 @@
 }
 
 .registration-brand {
-  color: #242238;
+  color: #1f2937;
   font-family: 'Playfair Display', serif;
 }
 
@@ -423,7 +423,7 @@
 .registration-eyebrow,
 .registration-card-header span,
 .registration-success span {
-  color: #927ab4;
+  color: #167da3;
 }
 
 .registration-back {
@@ -431,13 +431,13 @@
 }
 
 .registration-back:hover {
-  color: #927ab4;
+  color: #167da3;
 }
 
 .registration-intro h1,
 .registration-card-header h2,
 .registration-success h2 {
-  color: #242238;
+  color: #1f2937;
 }
 
 .registration-intro > p,
@@ -447,7 +447,7 @@
 }
 
 .registration-details > div {
-  border-color: rgba(146, 122, 180, 0.18);
+  border-color: rgba(74, 174, 208, 0.2);
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 12px 26px rgba(76, 63, 104, 0.06);
 }
@@ -455,7 +455,7 @@
 .registration-details svg,
 .registration-promise svg,
 .registration-secure svg {
-  color: #927ab4;
+  color: #167da3;
 }
 
 .registration-details span,
@@ -469,10 +469,10 @@
 }
 
 .registration-card {
-  border-color: rgba(146, 122, 180, 0.18);
+  border-color: rgba(74, 174, 208, 0.2);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 24px 65px rgba(76, 63, 104, 0.12);
+  box-shadow: 0 24px 65px rgba(42, 100, 120, 0.12);
   backdrop-filter: blur(14px);
 }
 
@@ -483,7 +483,7 @@
 .registration-form input,
 .registration-form select,
 .registration-form textarea {
-  border-color: #d9d3e6;
+  border-color: #c8e5ef;
   background: #ffffff;
   color: #242238;
 }
@@ -496,8 +496,8 @@
 .registration-form input:focus,
 .registration-form select:focus,
 .registration-form textarea:focus {
-  border-color: #a58bc9;
-  box-shadow: 0 0 0 4px rgba(165, 139, 201, 0.14);
+  border-color: #55b5d4;
+  box-shadow: 0 0 0 4px rgba(74, 174, 208, 0.14);
   background: #ffffff;
 }
 
@@ -512,12 +512,12 @@
 
 .registration-submit,
 .success-icon {
-  background: linear-gradient(135deg, #c6b2de 0%, #9a82be 100%);
-  box-shadow: 0 14px 30px rgba(146, 122, 180, 0.24);
+  background: linear-gradient(135deg, #58b8d8 0%, #167da3 100%);
+  box-shadow: 0 14px 30px rgba(22, 125, 163, 0.24);
 }
 
 .registration-submit:hover {
-  box-shadow: 0 18px 36px rgba(146, 122, 180, 0.32);
+  box-shadow: 0 18px 36px rgba(22, 125, 163, 0.32);
 }
 
 /* Fluid sizing keeps the registration flow usable on every viewport. */

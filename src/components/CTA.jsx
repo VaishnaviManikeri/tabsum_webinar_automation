@@ -84,17 +84,6 @@ const CTA = () => {
             </button>
           </div>
 
-          {/* Limited Seats Indicator */}
-          <div className="seats-indicator">
-            <div className="seats-bar">
-              <div className="seats-fill" style={{ width: '85%' }}></div>
-            </div>
-            <div className="seats-info">
-              <FaUsers className="seats-icon" />
-              <span><strong>Only 15 Seats Left</strong> - 85% Filled</span>
-            </div>
-          </div>
-
           {/* Trust Badges */}
           <div className="cta-trust-badges">
             <span>

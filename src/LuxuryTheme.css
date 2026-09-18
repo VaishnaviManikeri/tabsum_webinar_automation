@@ -1,0 +1,348 @@
+:root {
+  --luxury-paper: #fbfaf7;
+  --luxury-sage: #70877a;
+  --luxury-sage-soft: #e4eee7;
+  --luxury-mist: #e2eeee;
+  --luxury-champagne: #b89a63;
+  --luxury-ink: #2f3b36;
+  --luxury-muted: #718078;
+  --luxury-line: rgba(76, 94, 83, 0.14);
+  --luxury-shadow: 0 20px 55px rgba(69, 84, 75, 0.11);
+}
+
+html,
+body,
+#root,
+.app {
+  background: var(--luxury-paper) !important;
+  color: var(--luxury-ink) !important;
+}
+
+.app {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(226, 238, 238, 0.7), transparent 23%),
+    linear-gradient(180deg, #fcfaf6 0%, #f3f6f1 54%, #fffdf9 100%) !important;
+}
+
+.app :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--luxury-ink) !important;
+  letter-spacing: 0 !important;
+}
+
+.navbar {
+  background: rgba(252, 250, 246, 0.93) !important;
+  border-bottom: 1px solid var(--luxury-line) !important;
+  box-shadow: 0 12px 30px rgba(69, 84, 75, 0.07) !important;
+}
+
+.nav-logo a,
+.nav-logo span,
+.nav-menu li a {
+  color: var(--luxury-ink) !important;
+}
+
+.app .brand-logo,
+.app .footer-logo,
+.registration-brand {
+  display: inline-flex !important;
+  align-items: center;
+  gap: .55rem;
+  color: var(--luxury-ink) !important;
+  font-family: var(--font-subheading), sans-serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .01em !important;
+  text-decoration: none;
+}
+
+.app .nav-logo .brand-mark,
+.footer-logo .brand-mark,
+.registration-brand .brand-mark {
+  display: grid;
+  width: 1.9rem;
+  height: 1.9rem;
+  place-items: center;
+  border: 1px solid rgba(184, 154, 99, .6);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--luxury-champagne) !important;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.brand-mark svg { width: 1.15rem; height: 1.15rem; stroke-width: 2.3; }
+.brand-name { color: inherit !important; }
+.brand-name strong { color: var(--luxury-sage) !important; font-weight: 800; }
+.app .nav-logo .brand-mark,
+.app .nav-logo .brand-name { background: transparent !important; }
+
+.app svg,
+.registration-page svg,
+.admin-dashboard svg { color: #38bdf8 !important; }
+
+.nav-logo span,
+.nav-menu li a:hover,
+.nav-menu li a::after {
+  color: var(--luxury-sage) !important;
+  background: var(--luxury-champagne) !important;
+}
+
+.register-btn,
+.hero-btn,
+.cta-button,
+.cta-button-primary,
+.cta-primary-btn {
+  background: linear-gradient(135deg, #b89a63 0%, #8f7040 100%) !important;
+  border: 1px solid rgba(143, 112, 64, 0.36) !important;
+  box-shadow: 0 12px 26px rgba(143, 112, 64, 0.2) !important;
+}
+
+.register-btn:hover,
+.hero-btn:hover,
+.cta-button:hover,
+.cta-button-primary:hover,
+.cta-primary-btn:hover {
+  background: linear-gradient(135deg, #c6ad79 0%, #9b7b47 100%) !important;
+}
+
+.hero-section {
+  background: linear-gradient(110deg, #fcfaf6 0%, #eef4ef 58%, #e1ecec 100%) !important;
+}
+
+.hero-section::before {
+  background: linear-gradient(90deg, rgba(252, 250, 246, 0.97) 0%, rgba(252, 250, 246, 0.78) 43%, rgba(225, 236, 236, 0.3) 100%) !important;
+}
+
+.hero-tag,
+.webinar-badge,
+.speaker-badge,
+.benefits-badge,
+.agenda-badge,
+.testimonials-badge,
+.cta-badge {
+  color: var(--luxury-sage) !important;
+}
+
+.hero-content h1 span,
+.highlight-text,
+.about-title .highlight-text,
+.benefits-title .highlight-text {
+  color: var(--luxury-champagne) !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+.hero-content p,
+.hero-content .trust-badges span,
+.subtitle,
+.about-description,
+.benefits-description,
+.agenda-description,
+.testimonials-description,
+.cta-description {
+  color: var(--luxury-muted) !important;
+}
+
+.floating-card,
+.card,
+.speaker-main-card,
+.benefit-card,
+.agenda-content,
+.testimonial-card,
+.info-card,
+.cta-main-content {
+  background: rgba(255, 254, 250, 0.92) !important;
+  border-color: var(--luxury-line) !important;
+  box-shadow: var(--luxury-shadow) !important;
+}
+
+.floating-card::before {
+  background: linear-gradient(90deg, var(--luxury-sage-soft), var(--luxury-mist), var(--luxury-champagne)) !important;
+}
+
+.card-item-highlight {
+  background: linear-gradient(145deg, #f8f0df, #fffefa) !important;
+}
+
+.app :is(.about-container, .speaker-section, .benefits-section, .agenda-section, .testimonials-section, .cta-section) {
+  background: transparent !important;
+}
+
+.app :is(.about-container .cta-content, .connect-section, .benefits-cta .cta-content-wrapper, .agenda-cta .cta-content-wrapper, .testimonials-cta .cta-content-wrapper) :is(h3, p) {
+  color: #ffffff !important;
+}
+
+.footer,
+.site-footer {
+  background: linear-gradient(180deg, #fffefd 0%, #eef8fc 100%) !important;
+  border-top: 1px solid rgba(74, 174, 208, .24) !important;
+}
+
+.app :is(.footer, .site-footer) :is(h1, h2, h3, h4, h5, h6, p, span, li, a, strong) {
+  color: #3f3949 !important;
+}
+
+.app .site-footer .footer-brand > p,
+.app .site-footer .footer-invitation > p:not(.footer-heading),
+.app .site-footer .footer-navigation a,
+.app .site-footer .footer-invitation > a { color: #777180 !important; }
+.app .site-footer .footer-heading { color: #167da3 !important; }
+.app .site-footer .footer-register { background: #eaf6fb !important; border-color: #b9dfed !important; color: #167da3 !important; }
+.app .site-footer .footer-invitation > a { color: #167da3 !important; }
+.app .site-footer .footer-bottom { border-top-color: rgba(74, 174, 208, .2); }
+.app .site-footer .back-to-top { border-color: rgba(74, 174, 208, .3); color: #167da3 !important; }
+
+@media (max-width: 768px) {
+  .nav-menu {
+    background: var(--luxury-paper) !important;
+    border-top: 1px solid var(--luxury-line) !important;
+  }
+}
+
+.app section.cta-section {
+  padding: clamp(3.5rem, 8vw, 7rem) 1rem !important;
+  background: linear-gradient(135deg, #f5fbfd 0%, #f8faf8 52%, #fffaf2 100%) !important;
+}
+
+.app section.cta-section .cta-wrapper { max-width: 1120px; }
+.app section.cta-section .cta-main-content {
+  padding: clamp(2rem, 5vw, 4.5rem) !important;
+  border: 1px solid rgba(14, 165, 233, .18) !important;
+  border-radius: 1.5rem !important;
+  background: rgba(255, 255, 255, .94) !important;
+  box-shadow: 0 24px 70px rgba(38, 76, 86, .12) !important;
+}
+
+.app section.cta-section .cta-main-content::before {
+  height: 4px;
+  background: linear-gradient(90deg, #0284c7, #38bdf8, #7dd3fc) !important;
+}
+
+.app section.cta-section .cta-badge {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  box-shadow: none !important;
+}
+
+.app section.cta-section .cta-badge span,
+.app section.cta-section .cta-title,
+.app section.cta-section .cta-description,
+.app section.cta-section .urgency-text,
+.app section.cta-section .seats-info span,
+.app section.cta-section .seats-info strong { background: transparent !important; }
+
+.app section.cta-section .cta-badge span { color: #0369a1 !important; }
+.app section.cta-section .badge-icon { color: #0284c7 !important; }
+.app section.cta-section .cta-title { color: #0f172a !important; font-size: clamp(2.1rem, 5vw, 4rem) !important; }
+.app section.cta-section .cta-description { color: #475569 !important; max-width: 640px; }
+
+.app section.cta-section .cta-primary-btn {
+  background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+  border: 1px solid #0369a1 !important;
+  box-shadow: 0 12px 24px rgba(2, 132, 199, .2) !important;
+}
+
+.app section.cta-section .cta-secondary-btn {
+  background: #f0f9ff !important;
+  border-color: #bae6fd !important;
+  color: #0284c7 !important;
+}
+
+.app section.cta-section .seats-indicator {
+  margin: 2.25rem auto;
+  padding: 1rem 1.15rem;
+  border: 1px solid #e0f2fe;
+  border-radius: .85rem;
+  background: #f8fcfe;
+}
+
+.app section.cta-section .seats-info,
+.app section.cta-section .seats-info strong { color: #334155 !important; }
+.app section.cta-section .seats-info span,
+.app section.cta-section .seats-info strong { color: #000000 !important; }
+.app section.cta-section .cta-trust-badges { gap: 1.5rem 2.25rem; }
+.app section.cta-section .cta-trust-badges span { color: #475569 !important; }
+
+.app section.cta-section .cta-info-cards { gap: 1.25rem; }
+.app section.cta-section .info-card {
+  border: 1px solid rgba(14, 165, 233, .14) !important;
+  border-radius: 1rem !important;
+  background: rgba(255, 255, 255, .82) !important;
+}
+
+.app section.cta-section .urgency-banner {
+  border: 1px solid #bae6fd !important;
+  border-radius: .85rem !important;
+  background: #e0f2fe !important;
+  animation: none;
+}
+
+.app section.cta-section .urgency-icon,
+.app section.cta-section .urgency-text,
+.app section.cta-section .urgency-text strong { color: #075985 !important; }
+
+/* Keep the imported presentation layer free of lavender tones. */
+.app :is(.speaker-section, .agenda-section, .testimonials-section) {
+  background: linear-gradient(135deg, #f8fcfd 0%, #eef8fc 100%) !important;
+}
+
+.app :is(.webinar-badge, .speaker-badge, .benefits-badge, .agenda-badge, .testimonials-badge, .cta-badge) {
+  color: #167da3 !important;
+  background: #eaf6fb !important;
+  border-color: rgba(74, 174, 208, .3) !important;
+}
+
+.app :is(.card-icon, .credential-icon, .benefit-icon-wrapper, .bonus-icon-wrapper, .session-icon-wrapper, .info-icon) {
+  background: #eaf6fb !important;
+  border-color: rgba(74, 174, 208, .22) !important;
+  color: #167da3 !important;
+}
+
+.app :is(.card-icon svg, .credential-icon svg, .benefit-icon, .bonus-icon-wrapper svg, .session-icon-wrapper svg, .info-icon svg) {
+  color: #167da3 !important;
+}
+
+.app :is(.stats-section, .impact-stats, .social-proof) {
+  background: #f4fbfd !important;
+  border-color: rgba(74, 174, 208, .2) !important;
+}
+
+.app :is(.stat-number, .topic-number, .outcome-number, .day-number, .session-number) {
+  color: #167da3 !important;
+}
+
+.app .agenda-section .day-btn.active {
+  background: #eaf6fb !important;
+  border-color: #9bd4e7 !important;
+}
+
+@media (max-width: 640px) {
+  .app section.cta-section .cta-main-content { padding: 2rem 1.25rem !important; }
+  .app section.cta-section .cta-title { font-size: clamp(2rem, 10vw, 2.8rem) !important; }
+  .app section.cta-section .cta-trust-badges { align-items: flex-start; gap: .8rem; }
+}
+
+.registration-page {
+  background: linear-gradient(135deg, #fffefd 0%, #f3fafd 54%, #edf6fc 100%) !important;
+  color: #1f2937 !important;
+}
+
+.registration-page .registration-orb-one { background: #9bd4e7 !important; }
+.registration-page .registration-brand,
+.registration-page .registration-intro h1,
+.registration-page .registration-card-header h2,
+.registration-page .registration-success h2 { color: #1f2937 !important; }
+.registration-page :is(.registration-brand span, .registration-eyebrow, .registration-card-header span, .registration-success span) { color: #167da3 !important; }
+.registration-page .registration-back { color: #64748b !important; }
+.registration-page .registration-back:hover { color: #167da3 !important; }
+.registration-page :is(.registration-intro > p, .registration-card-header p, .registration-success p) { color: #475569 !important; }
+.registration-page .registration-details > div,
+.registration-page .registration-card { border-color: rgba(74, 174, 208, .2) !important; }
+.registration-page .registration-details > div { background: rgba(255, 255, 255, .78) !important; }
+.registration-page :is(.registration-details svg, .registration-promise svg, .registration-secure svg) { color: #167da3 !important; }
+.registration-page .registration-card { background: rgba(255, 255, 255, .94) !important; box-shadow: 0 24px 65px rgba(42, 100, 120, .12) !important; }
+.registration-page .registration-form :is(input, select, textarea) { border-color: #c8e5ef !important; color: #1f2937 !important; }
+.registration-page .registration-form :is(input, select, textarea):focus { border-color: #55b5d4 !important; box-shadow: 0 0 0 4px rgba(74, 174, 208, .14) !important; }
+.registration-page :is(.registration-submit, .success-icon) { background: linear-gradient(135deg, #58b8d8 0%, #167da3 100%) !important; box-shadow: 0 14px 30px rgba(22, 125, 163, .24) !important; }
+
+

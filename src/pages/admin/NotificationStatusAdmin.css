@@ -1,0 +1,145 @@
+.notification-status-page {
+  color: var(--admin-text, #17212b);
+}
+
+.notification-status-header,
+.notification-status-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.notification-status-eyebrow {
+  color: #087f8c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.notification-status-header h1 {
+  margin: 0.35rem 0;
+}
+
+.notification-status-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.notification-refresh-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  background: #087f8c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.notification-status-toolbar {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.notification-status-toolbar label {
+  font-weight: 700;
+}
+
+.notification-status-toolbar input {
+  min-width: min(420px, 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 0.65rem 0.75rem;
+}
+
+.notification-status-error,
+.notification-status-empty {
+  padding: 1.25rem;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+.notification-status-error {
+  color: #b42318;
+  border-color: #fecdca;
+  background: #fff6f5;
+}
+
+.notification-status-table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.notification-status-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+}
+
+.notification-status-table th,
+.notification-status-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #eef2f6;
+  text-align: left;
+  vertical-align: top;
+}
+
+.notification-status-table th {
+  color: #475569;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.notification-status-table th svg {
+  margin-right: 0.35rem;
+}
+
+.notification-status-table td:first-child strong,
+.notification-status-table td:first-child span {
+  display: block;
+}
+
+.notification-status-table td:first-child span {
+  margin-top: 0.2rem;
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+.notification-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.notification-status.sent { color: #15803d; }
+.notification-status.pending { color: #a16207; }
+.notification-status.failed { color: #b42318; }
+.notification-status.skipped,
+.notification-status.not_created { color: #64748b; }
+
+@media (max-width: 700px) {
+  .notification-status-header,
+  .notification-status-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .notification-status-toolbar input {
+    min-width: 0;
+    width: 100%;
+  }
+}

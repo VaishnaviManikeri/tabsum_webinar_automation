@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { FaInfinity, FaMoon, FaSun } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -41,7 +41,10 @@ const Navbar = () => {
     <nav className={`navbar ${onHome ? 'navbar-home' : 'navbar-scrolled'} ${theme === 'dark' ? 'navbar-dark' : ''}`}>
       <div className="nav-container">
         <div className="nav-logo">
-          <a href="#home">Infinite <span>Blessing</span></a>
+          <a className="brand-logo" href="#home" aria-label="Infinite Blessing home">
+            <span className="brand-mark" aria-hidden="true"><FaInfinity /></span>
+            <span className="brand-name">Infinite <strong>Blessing</strong></span>
+          </a>
         </div>
 
         <button 

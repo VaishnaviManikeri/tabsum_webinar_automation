@@ -52,6 +52,12 @@ api.interceptors.request.use(
 
     }
 
+    if (
+      config.data instanceof FormData
+    ) {
+      delete config.headers['Content-Type'];
+    }
+
     return config;
   },
 
@@ -353,6 +359,20 @@ export const paymentAPI = {
         razorpay_order_id,
         razorpay_signature
       }
+    );
+
+    return response;
+  }
+};
+
+// ==================================================
+// NOTIFICATION STATUS API
+// ==================================================
+
+export const notificationStatusAPI = {
+  getAll: async () => {
+    const response = await api.get(
+      '/notification-status'
     );
 
     return response;

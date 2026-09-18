@@ -19,6 +19,7 @@ import api from './api';
 import './App.css';
 import './PublicOverrides.css';
 import './ReferenceTheme.css';
+import './LuxuryTheme.css';
 
 function App() {
   useEffect(() => {

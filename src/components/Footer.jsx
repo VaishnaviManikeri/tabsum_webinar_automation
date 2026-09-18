@@ -1,4 +1,4 @@
-import { FaArrowUp, FaCalendarCheck } from 'react-icons/fa';
+import { FaArrowUp, FaCalendarCheck, FaInfinity } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
@@ -19,7 +19,8 @@ const Footer = () => (
       <div className="footer-main">
         <div className="footer-brand">
           <a className="footer-logo" href="#home" aria-label="Infinite Blessing home">
-            Infinite <span>Blessing</span>
+            <span className="brand-mark" aria-hidden="true"><FaInfinity /></span>
+            <span className="brand-name">Infinite <strong>Blessing</strong></span>
           </a>
           <p>Practical ideas, expert guidance, and the right next steps—all in one focused webinar experience.</p>
           <Link className="footer-register" to="/register">

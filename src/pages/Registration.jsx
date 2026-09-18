@@ -18,7 +18,8 @@ import {
   paymentAPI
 } from '../api';
 
-// Local-only payment test mode. Keep this false/undefined in production.
+// Local-only payment test mode.
+// Keep this false/undefined in production.
 const RAZORPAY_MOCK_MODE =
   import.meta.env.VITE_RAZORPAY_MOCK_MODE === 'true';
 
@@ -29,21 +30,13 @@ const Registration = () => {
   // STATE
   // ==================================================
 
-  const [submitted, setSubmitted] =
-    useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [error, setError] =
-    useState('');
+  const [error, setError] = useState('');
 
-  const [webinar, setWebinar] =
-    useState(null);
-
-  // Stores the registration created in database
-  const [registrationId, setRegistrationId] =
-    useState(null);
+  const [webinar, setWebinar] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -71,12 +64,16 @@ const Registration = () => {
           await webinarAPI.getAll();
 
         const webinarData =
-          response.data?.data?.[0];
+          response?.data?.data?.[0];
 
         if (webinarData) {
 
-          setWebinar(
-            webinarData
+          setWebinar(webinarData);
+
+        } else {
+
+          setError(
+            'Webinar information is currently unavailable. Please refresh the page.'
           );
 
         }
@@ -86,6 +83,10 @@ const Registration = () => {
         console.error(
           'Failed to load webinar:',
           error
+        );
+
+        setError(
+          'Unable to load webinar information. Please refresh the page.'
         );
 
       }
@@ -124,6 +125,65 @@ const Registration = () => {
     );
 
   };
+
+
+  // ==================================================
+  // WEBINAR DISPLAY VALUES
+  // ==================================================
+
+  const webinarTitle =
+    webinar?.title ||
+    'The Abundance Crossroad™';
+
+
+  const webinarSubtitle =
+    webinar?.subtitle ||
+    'The 2-Day Experience That Will Transform the Way You Make Decisions About Money, Success, Leadership and Life.';
+
+
+  const webinarDate =
+    webinar?.date ||
+    'To be updated';
+
+
+  const webinarTime =
+    webinar?.time ||
+    'To be updated';
+
+
+  const webinarDuration =
+    webinar?.duration ||
+    'Two-day experience';
+
+
+  const webinarPlatform =
+    webinar?.platform ||
+    'Zoom';
+
+
+  // ==================================================
+  // DYNAMIC PRICE
+  // ==================================================
+
+  const webinarPrice =
+    webinar?.price !== undefined &&
+    webinar?.price !== null &&
+    webinar?.price !== ''
+      ? Number(webinar.price)
+      : null;
+
+
+  const hasValidPrice =
+    Number.isFinite(webinarPrice) &&
+    webinarPrice > 0;
+
+
+  const formattedPrice =
+    hasValidPrice
+      ? webinarPrice.toLocaleString('en-IN', {
+          maximumFractionDigits: 2
+        })
+      : null;
 
 
   // ==================================================
@@ -171,96 +231,147 @@ const Registration = () => {
 
 
       // ----------------------------------------------
+      // Validate backend payment amount
+      // ----------------------------------------------
+
+      const backendAmount =
+        Number(paymentData.amount);
+
+
+      if (
+        !Number.isFinite(backendAmount) ||
+        backendAmount <= 0
+      ) {
+
+        throw new Error(
+          'Invalid payment amount received from server.'
+        );
+
+      }
+
+
+      // ----------------------------------------------
       // LOCAL MOCK PAYMENT E2E
       // ----------------------------------------------
+
       // The backend mock mode creates a fake Razorpay order.
       // A real Razorpay Checkout window cannot process that fake
       // order, so local E2E testing must call the same verification
       // API directly with the backend's mock payment values.
-      // This branch is controlled only by VITE_RAZORPAY_MOCK_MODE
-      // and is disabled by default in production.
-      // ----------------------------------------------
+      //
+      // This branch is controlled only by
+      // VITE_RAZORPAY_MOCK_MODE and is disabled by default
+      // in production.
 
       if (RAZORPAY_MOCK_MODE) {
+
         try {
+
           const mockPaymentId =
             `pay_mock_${Date.now()}`;
+
 
           console.log(
             'RAZORPAY MOCK FRONTEND PAYMENT:',
             {
               registrationId,
               paymentId: mockPaymentId,
-              orderId: paymentData.orderId
+              orderId: paymentData.orderId,
+              amount: backendAmount
             }
           );
 
+
           const verifyResponse =
             await paymentAPI.verifyPayment({
+
               registrationId,
+
               razorpay_payment_id:
                 mockPaymentId,
+
               razorpay_order_id:
                 paymentData.orderId,
+
               razorpay_signature:
                 'MOCK_SIGNATURE'
+
             });
+
 
           console.log(
             'Mock payment verification response:',
             verifyResponse
           );
 
+
           const verificationData =
             verifyResponse?.data?.data;
+
 
           if (
             verifyResponse?.data?.success &&
             verificationData?.status === 'paid'
           ) {
+
             sessionStorage.removeItem(
               'razorpayPaymentResponse'
             );
 
+
             setSubmitted(true);
+
             setLoading(false);
+
 
             window.scrollTo({
               top: 0,
               behavior: 'smooth'
             });
 
+
             return;
+
           }
+
 
           throw new Error(
             verifyResponse?.data?.message ||
             'Mock payment verification failed.'
           );
+
+
         } catch (error) {
+
           console.error(
             'Mock payment verification error:',
             error
           );
 
+
           setLoading(false);
+
+
           setError(
             error?.response?.data?.message ||
             error?.message ||
             'Mock payment verification failed.'
           );
 
+
           return;
+
         }
+
       }
+
 
       // ----------------------------------------------
       // Check Razorpay Checkout
       // ----------------------------------------------
 
       if (
-        typeof window.Razorpay !==
-        'function'
+        typeof window.Razorpay !== 'function'
       ) {
 
         throw new Error(
@@ -279,6 +390,9 @@ const Registration = () => {
         key:
           paymentData.keyId,
 
+        // IMPORTANT:
+        // Amount comes from backend.
+        // Do not calculate or hardcode ₹249 here.
         amount:
           paymentData.amount,
 
@@ -289,7 +403,7 @@ const Registration = () => {
           'The Abundance Crossroad™',
 
         description:
-          '2-Day Webinar Experience',
+          webinarSubtitle,
 
         order_id:
           paymentData.orderId,
@@ -323,8 +437,7 @@ const Registration = () => {
             String(registrationId),
 
           webinar:
-            webinar?.title ||
-            'The Abundance Crossroad™'
+            webinarTitle
 
         },
 
@@ -364,12 +477,9 @@ const Registration = () => {
             // --------------------------------------
 
             if (
-              !razorpayResponse
-                ?.razorpay_payment_id ||
-              !razorpayResponse
-                ?.razorpay_order_id ||
-              !razorpayResponse
-                ?.razorpay_signature
+              !razorpayResponse?.razorpay_payment_id ||
+              !razorpayResponse?.razorpay_order_id ||
+              !razorpayResponse?.razorpay_signature
             ) {
 
               throw new Error(
@@ -386,24 +496,16 @@ const Registration = () => {
             const verifyResponse =
               await paymentAPI.verifyPayment({
 
-                registrationId:
-
-                  registrationId,
+                registrationId,
 
                 razorpay_payment_id:
-
-                  razorpayResponse
-                    .razorpay_payment_id,
+                  razorpayResponse.razorpay_payment_id,
 
                 razorpay_order_id:
-
-                  razorpayResponse
-                    .razorpay_order_id,
+                  razorpayResponse.razorpay_order_id,
 
                 razorpay_signature:
-
-                  razorpayResponse
-                    .razorpay_signature
+                  razorpayResponse.razorpay_signature
 
               });
 
@@ -459,6 +561,7 @@ const Registration = () => {
               verifyResponse?.data?.message ||
               'Payment verification failed.'
             );
+
 
           } catch (error) {
 
@@ -556,6 +659,7 @@ const Registration = () => {
 
       razorpay.open();
 
+
     } catch (error) {
 
       console.error(
@@ -602,6 +706,19 @@ const Registration = () => {
 
         throw new Error(
           'Webinar information is not available. Please refresh the page and try again.'
+        );
+
+      }
+
+
+      // ----------------------------------------------
+      // Make sure webinar price is valid
+      // ----------------------------------------------
+
+      if (!hasValidPrice) {
+
+        throw new Error(
+          'Webinar price is not configured correctly. Please contact support.'
         );
 
       }
@@ -700,15 +817,6 @@ const Registration = () => {
 
 
       // ----------------------------------------------
-      // Save registration ID
-      // ----------------------------------------------
-
-      setRegistrationId(
-        createdRegistrationId
-      );
-
-
-      // ----------------------------------------------
       // Open Razorpay
       // ----------------------------------------------
 
@@ -735,6 +843,7 @@ const Registration = () => {
 
       });
 
+
     } catch (error) {
 
       console.error(
@@ -756,30 +865,6 @@ const Registration = () => {
     }
 
   };
-
-
-  // ==================================================
-  // WEBINAR DISPLAY VALUES
-  // ==================================================
-
-  const webinarDate =
-    webinar?.date ||
-    'To be updated';
-
-
-  const webinarTime =
-    webinar?.time ||
-    'To be updated';
-
-
-  const webinarDuration =
-    webinar?.duration ||
-    'Two-day experience';
-
-
-  const webinarPlatform =
-    webinar?.platform ||
-    'Zoom';
 
 
   // ==================================================
@@ -809,7 +894,10 @@ const Registration = () => {
           to="/"
           className="registration-brand"
         >
-          Infinite <span>Blessing</span>
+
+          <span className="brand-mark" aria-hidden="true">∞</span>
+          <span className="brand-name">Infinite <strong>Blessing</strong></span>
+
         </Link>
 
 
@@ -931,6 +1019,29 @@ const Registration = () => {
               </span>
 
             </div>
+
+          </div>
+
+
+          {/* =================================================
+              WEBINAR PRICE
+          ================================================= */}
+
+          <div className="registration-promise">
+
+            <FaCheckCircle />
+
+            <span>
+
+              <strong>
+                Investment:
+              </strong>{' '}
+
+              {hasValidPrice
+                ? `₹${formattedPrice}`
+                : 'Price to be updated'}
+
+            </span>
 
           </div>
 
@@ -1060,7 +1171,7 @@ const Registration = () => {
                       'rgba(220, 38, 38, 0.12)',
                     border:
                       '1px solid rgba(248, 113, 113, 0.35)',
-                    color: '#fecaca',
+                    color: '#b91c1c',
                     fontSize: '0.9rem'
                   }}
                 >
@@ -1277,13 +1388,23 @@ const Registration = () => {
                 <button
                   className="registration-submit"
                   type="submit"
-                  disabled={loading}
+                  disabled={
+                    loading ||
+                    !webinar?.id ||
+                    !hasValidPrice
+                  }
                   style={{
                     opacity:
-                      loading ? 0.7 : 1,
+                      loading ||
+                      !webinar?.id ||
+                      !hasValidPrice
+                        ? 0.7
+                        : 1,
 
                     cursor:
-                      loading
+                      loading ||
+                      !webinar?.id ||
+                      !hasValidPrice
                         ? 'not-allowed'
                         : 'pointer'
                   }}
@@ -1291,11 +1412,13 @@ const Registration = () => {
 
                   {loading
                     ? 'Processing...'
-                    : 'Proceed to secure payment — ₹249'
+                    : hasValidPrice
+                      ? `Proceed to secure payment — ₹${formattedPrice}`
+                      : 'Payment price unavailable'
                   }
 
 
-                  {!loading && (
+                  {!loading && hasValidPrice && (
                     <FaCheckCircle />
                   )}
 

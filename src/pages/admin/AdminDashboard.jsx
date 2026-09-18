@@ -15,6 +15,7 @@ import {
   FaFont,
   FaUsers,
   FaClipboardList,
+  FaBell,
 } from 'react-icons/fa';
 import HomeAdmin from './HomeAdmin';
 import AboutAdmin from './AboutAdmin';
@@ -25,6 +26,7 @@ import './AdminDashboard.css';
 import './AdminTheme.css';
 import CRMDashboard from './CRMDashboard';
 import RegistrationsAdmin from './RegistrationsAdmin';
+import NotificationStatusAdmin from './NotificationStatusAdmin';
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -70,6 +72,28 @@ const AdminDashboard = () => {
   <FaClipboardList />
   <span>Registrations</span>
 </NavLink>
+
+<NavLink
+  to="/admin/dashboard/notification-status/confirmation"
+  onClick={() => setSidebarOpen(false)}
+  className={({ isActive }) =>
+    `sidebar-link ${isActive ? 'active' : ''}`
+  }
+>
+  <FaBell />
+  <span>Confirmation Status</span>
+</NavLink>
+
+<NavLink
+  to="/admin/dashboard/notification-status/reminders"
+  onClick={() => setSidebarOpen(false)}
+  className={({ isActive }) =>
+    `sidebar-link ${isActive ? 'active' : ''}`
+  }
+>
+  <FaBell />
+  <span>Reminder Status</span>
+</NavLink>
         <nav className="sidebar-links">
           <NavLink to="/admin/dashboard" end onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaHome /><span>Home Page</span></NavLink>
           <NavLink to="/admin/dashboard/about" onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaInfoCircle /><span>About Page</span></NavLink>
@@ -113,6 +137,14 @@ const AdminDashboard = () => {
   path="registrations"
   element={<RegistrationsAdmin />}
 />
+            <Route
+              path="notification-status/confirmation"
+              element={<NotificationStatusAdmin mode="confirmation" />}
+            />
+            <Route
+              path="notification-status/reminders"
+              element={<NotificationStatusAdmin mode="reminders" />}
+            />
           </Routes>
         </div>
       </main>
