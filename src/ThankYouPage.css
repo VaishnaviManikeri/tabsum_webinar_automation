@@ -1,0 +1,182 @@
+.thank-you-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 0 clamp(16px, 5vw, 72px) 72px;
+  color: #1f2937;
+  background: linear-gradient(135deg, #fffefd 0%, #f3fafd 54%, #edf6fc 100%);
+}
+
+.thank-you-orb {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  opacity: .16;
+  filter: blur(85px);
+  pointer-events: none;
+}
+
+.thank-you-orb-one { top: -150px; right: -90px; background: #65c6e8; }
+.thank-you-orb-two { bottom: -170px; left: -100px; background: #d5ae65; }
+
+.thank-you-header {
+  width: min(100%, 920px);
+  height: 82px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.thank-you-brand {
+  color: #1f2937;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  text-decoration: none;
+}
+
+.thank-you-brand span { color: #167da3; }
+
+.thank-you-card {
+  width: min(100%, 760px);
+  box-sizing: border-box;
+  margin: 44px auto 0;
+  padding: clamp(26px, 5vw, 48px);
+  border: 1px solid rgba(74, 174, 208, .22);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .9);
+  box-shadow: 0 24px 65px rgba(42, 100, 120, .14);
+  position: relative;
+  z-index: 1;
+}
+
+.thank-you-icon,
+.community-panel-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: #fff;
+  background: linear-gradient(135deg, #58b8d8 0%, #167da3 100%);
+}
+
+.thank-you-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  box-shadow: 0 14px 30px rgba(22, 125, 163, .24);
+}
+
+.thank-you-eyebrow {
+  display: block;
+  margin-top: 22px;
+  color: #167da3;
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.thank-you-card h1 {
+  max-width: 620px;
+  margin: 10px 0 14px;
+  color: #1f2937;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -.04em;
+}
+
+.thank-you-intro { margin: 0; color: #68677a; line-height: 1.7; }
+
+.community-panel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid rgba(37, 211, 102, .28);
+  border-radius: 16px;
+  background: rgba(37, 211, 102, .07);
+}
+
+.community-panel-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #25d366;
+}
+
+.community-panel h2,
+.delivery-list h2 { margin: 0; color: #303047; font-size: 1rem; }
+.community-panel p,
+.delivery-list p { margin: 5px 0 0; color: #68677a; font-size: .9rem; line-height: 1.55; }
+
+.community-link,
+.thank-you-home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 999px;
+  padding: 12px 17px;
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.community-link { background: #25d366; box-shadow: 0 10px 20px rgba(37, 211, 102, .2); }
+.thank-you-home-link { margin-top: 28px; background: linear-gradient(135deg, #58b8d8 0%, #167da3 100%); }
+.community-link:hover,
+.thank-you-home-link:hover { transform: translateY(-2px); }
+
+.community-unavailable {
+  grid-column: 2 / -1;
+  font-size: .84rem !important;
+  font-style: italic;
+}
+
+.delivery-list {
+  display: grid;
+  gap: 13px;
+  margin-top: 18px;
+}
+
+.delivery-list article {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 13px;
+  padding: 17px 2px;
+  border-bottom: 1px solid rgba(74, 174, 208, .16);
+}
+
+.delivery-list article > svg { margin-top: 2px; color: #167da3; }
+
+.test-mode-notice {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 24px 0 0;
+  color: #69708a;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+.test-mode-notice svg { margin-top: 2px; color: #167da3; }
+
+@media (max-width: 640px) {
+  .thank-you-page { padding-bottom: 40px; }
+  .thank-you-header { height: 70px; }
+  .thank-you-card { margin-top: 20px; padding: 26px 20px; }
+  .community-panel { grid-template-columns: auto 1fr; }
+  .community-link { grid-column: 1 / -1; width: 100%; box-sizing: border-box; }
+  .community-unavailable { grid-column: 1 / -1; }
+  .thank-you-home-link { width: 100%; box-sizing: border-box; }
+}

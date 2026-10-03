@@ -1,14 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../../api';
 import './HomeAdmin.css';
-import AppearanceControls from './AppearanceControls';
-
-const homeAppearanceDefaults = {
-  textColor: '#ffffff',
-  backgroundColor: '#0b4f85',
-  fontFamily: 'Inter',
-  fontSize: '16'
-};
 
 const HomeAdmin = () => {
   const [formData, setFormData] = useState({
@@ -36,17 +28,11 @@ const HomeAdmin = () => {
   });
 
   const [webinarData, setWebinarData] = useState(null);
-
-  const [appearance, setAppearance] = useState(() => {
+  const [homeAppearance, setHomeAppearance] = useState(() => {
     try {
-      return {
-        ...homeAppearanceDefaults,
-        ...JSON.parse(
-          localStorage.getItem('homeAppearance') || '{}'
-        )
-      };
+      return { textColor: '#ffffff', ...JSON.parse(localStorage.getItem('homeAppearance') || '{}') };
     } catch {
-      return homeAppearanceDefaults;
+      return { textColor: '#ffffff' };
     }
   });
 
@@ -128,6 +114,12 @@ const HomeAdmin = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleTextColorChange = (event) => {
+    const nextAppearance = { ...homeAppearance, textColor: event.target.value };
+    setHomeAppearance(nextAppearance);
+    localStorage.setItem('homeAppearance', JSON.stringify(nextAppearance));
   };
 
   // =========================================================
@@ -292,13 +284,6 @@ const HomeAdmin = () => {
       if (
         response.data.success
       ) {
-        localStorage.setItem(
-          'homeAppearance',
-          JSON.stringify(
-            appearance
-          )
-        );
-
         setMessage({
           type: 'success',
           text:
@@ -419,6 +404,16 @@ const HomeAdmin = () => {
 
             </div>
 
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="home-text-color">Home page text color</label>
+              <div className="color-input-wrap">
+                <input id="home-text-color" type="color" value={homeAppearance.textColor} onChange={handleTextColorChange} />
+                <span>{homeAppearance.textColor}</span>
+              </div>
+            </div>
           </div>
 
           {/* ================================================= */}
@@ -715,15 +710,6 @@ const HomeAdmin = () => {
             )}
 
           </div>
-
-          {/* ================================================= */}
-          {/* APPEARANCE */}
-          {/* ================================================= */}
-
-          <AppearanceControls
-            value={appearance}
-            onChange={setAppearance}
-          />
 
           {/* ================================================= */}
           {/* SUBMIT */}

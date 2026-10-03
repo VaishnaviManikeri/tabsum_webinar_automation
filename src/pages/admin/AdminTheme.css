@@ -1,19 +1,19 @@
 :root {
-  --admin-navy: #0D5B99;
-  --admin-navy-deep: #0B4F85;
-  --admin-indigo: #0F64A7;
-  --admin-indigo-dark: #0D5B99;
-  --admin-indigo-soft: #EAF4FB;
-  --admin-canvas: #FAFAFC;
-  --admin-surface: #ffffff;
-  --admin-text: #111827;
-  --admin-muted: #6B7280;
-  --admin-border: #E5E7EB;
-  --admin-success: #087443;
-  --admin-warning: #a15c07;
-  --admin-danger: #b42318;
-  --admin-radius: 12px;
-  --admin-shadow: 0 8px 24px rgba(17, 24, 39, .05);
+  --admin-navy: #172554;
+  --admin-navy-deep: #172554;
+  --admin-indigo: #2563EB;
+  --admin-indigo-dark: #1D4ED8;
+  --admin-indigo-soft: #EFF6FF;
+  --admin-canvas: #F8FAFC;
+  --admin-surface: #FFFFFF;
+  --admin-text: #172554;
+  --admin-muted: #64748B;
+  --admin-border: #E2E8F0;
+  --admin-success: #15803D;
+  --admin-warning: #A16207;
+  --admin-danger: #B91C1C;
+  --admin-radius: 10px;
+  --admin-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 8px 22px rgba(15, 23, 42, .045);
 }
 
 /* Keep admin scrolling available without showing the public gold scrollbar. */
@@ -469,4 +469,315 @@
   .admin-dashboard .admin-form-container,
   .admin-dashboard .typography-panel { padding: 18px; }
   .admin-login-card { padding: 34px 24px; }
+}
+
+/* Shared enterprise admin surface */
+.admin-dashboard {
+  min-height: 100vh;
+  background: var(--admin-canvas);
+  color: var(--admin-text);
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.admin-dashboard :is(button, a, input, select, textarea) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.admin-dashboard :is(button, a, input, select, textarea):focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .25);
+  outline-offset: 2px;
+}
+
+.admin-dashboard .dashboard-sidebar {
+  width: 264px;
+  padding: 22px 14px 16px;
+  background: var(--admin-navy-deep);
+  box-shadow: 8px 0 28px rgba(15, 23, 42, .12);
+}
+
+.admin-dashboard .sidebar-brand {
+  min-height: 58px;
+  padding: 0 8px 18px;
+  border-bottom-color: rgba(255, 255, 255, .12);
+}
+
+.admin-dashboard .sidebar-brand strong,
+.admin-dashboard .admin-profile strong {
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 650;
+}
+
+.admin-dashboard .sidebar-brand span,
+.admin-dashboard .admin-profile span {
+  color: #B8C5E0;
+  font-size: .7rem;
+}
+
+.admin-dashboard .brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: var(--admin-indigo);
+  box-shadow: 0 5px 14px rgba(37, 99, 235, .3);
+}
+
+.admin-dashboard .sidebar-label {
+  padding: 18px 12px 8px;
+  color: #A9B8D4;
+  font-size: .62rem;
+  letter-spacing: .1em;
+}
+
+.admin-dashboard .sidebar-label.webinar-management-label {
+  padding-top: 8px;
+}
+
+.admin-dashboard .sidebar-links {
+  gap: 4px;
+}
+
+.admin-dashboard .sidebar-link {
+  min-height: 40px;
+  margin: 1px 0;
+  padding: 9px 11px;
+  border-radius: 7px;
+  color: #D2DBEC;
+  font-size: .79rem;
+  font-weight: 550;
+  transition: color .18s ease, background-color .18s ease, border-color .18s ease;
+}
+
+.admin-dashboard .sidebar-link svg {
+  width: 16px;
+  color: #A9B8D4;
+}
+
+.admin-dashboard .sidebar-link:hover {
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+}
+
+.admin-dashboard .sidebar-link.active {
+  border-color: rgba(147, 197, 253, .2);
+  background: rgba(37, 99, 235, .28);
+  box-shadow: inset 3px 0 #60A5FA;
+  color: #fff;
+}
+
+.admin-dashboard .sidebar-link.active svg {
+  color: #93C5FD;
+}
+
+.admin-dashboard .sidebar-footer {
+  border-top-color: rgba(255, 255, 255, .12);
+}
+
+.admin-dashboard .profile-avatar {
+  border-radius: 8px;
+  background: rgba(147, 197, 253, .16);
+  color: #BFDBFE;
+}
+
+.admin-dashboard .sidebar-logout {
+  border-radius: 7px;
+  color: #FECACA;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+.admin-dashboard .sidebar-logout:hover {
+  background: rgba(239, 68, 68, .12);
+  color: #FEE2E2;
+}
+
+.admin-dashboard .dashboard-main {
+  width: calc(100% - 264px);
+  margin-left: 264px;
+}
+
+.admin-dashboard .dashboard-topbar {
+  min-height: 68px;
+  height: auto;
+  padding: 0 32px;
+  background: rgba(255, 255, 255, .96);
+  border-bottom-color: var(--admin-border);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, .035);
+}
+
+.admin-dashboard .dashboard-topbar h2 {
+  color: var(--admin-navy);
+  font-size: .96rem;
+  font-weight: 650;
+}
+
+.admin-dashboard .topbar-eyebrow {
+  color: var(--admin-indigo);
+  font-size: .62rem;
+  letter-spacing: .08em;
+}
+
+.admin-dashboard .topbar-logout,
+.admin-dashboard .sidebar-toggle {
+  min-height: 37px;
+  border-color: var(--admin-border);
+  border-radius: 7px;
+  color: #334155;
+  font-size: .75rem;
+  transition: color .18s ease, background-color .18s ease, border-color .18s ease;
+}
+
+.admin-dashboard .topbar-logout:hover,
+.admin-dashboard .sidebar-toggle:hover {
+  border-color: #BFDBFE;
+  background: var(--admin-indigo-soft);
+  color: var(--admin-indigo-dark);
+}
+
+.admin-dashboard .dashboard-content {
+  max-width: 1600px;
+  padding: 30px 32px 48px;
+}
+
+.admin-dashboard :is(.admin-header h1, .crm-header h1, .registrations-header h1) {
+  color: var(--admin-navy);
+  font-family: "Segoe UI", Tahoma, sans-serif !important;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+
+.admin-dashboard :is(.admin-header p, .crm-header p, .registrations-header p) {
+  color: var(--admin-muted);
+  line-height: 1.55;
+}
+
+.admin-dashboard :is(.admin-form-container, .typography-panel, .crm-card, .crm-chart-card, .registrations-table-card, .registration-stat-card, .crm-stat-card) {
+  border-color: var(--admin-border);
+  border-radius: var(--admin-radius);
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-dashboard :is(.admin-form-container, .typography-panel) {
+  padding: 24px;
+}
+
+.admin-dashboard :is(.admin-form input:not([type="file"]), .admin-form textarea, .admin-form select, .crm-search input, .crm-filters select, .registration-search input, .filter-group select, .font-category select) {
+  min-height: 40px;
+  border: 1px solid #CBD5E1;
+  border-radius: 7px;
+  background: #fff;
+  color: #172554;
+  font-family: inherit;
+  font-size: .8rem;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.admin-dashboard :is(.admin-form input:not([type="file"]), .admin-form textarea, .admin-form select, .crm-search input, .crm-filters select, .registration-search input, .filter-group select, .font-category select):focus {
+  border-color: var(--admin-indigo);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+.admin-dashboard :is(.submit-btn, .modal-done-btn, .registrations-export, .crm-attendance-link) {
+  min-height: 39px;
+  border: 1px solid var(--admin-indigo);
+  border-radius: 7px;
+  background: var(--admin-indigo);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, .16);
+  color: #fff;
+  font-size: .77rem;
+  font-weight: 650;
+  transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.admin-dashboard :is(.submit-btn, .modal-done-btn, .registrations-export, .crm-attendance-link):hover:not(:disabled) {
+  border-color: var(--admin-indigo-dark);
+  background: var(--admin-indigo-dark);
+  box-shadow: 0 5px 12px rgba(37, 99, 235, .2);
+  transform: translateY(-1px);
+}
+
+.admin-dashboard :is(.crm-refresh, .registrations-refresh, .view-registration-btn) {
+  min-height: 38px;
+  border-color: var(--admin-border);
+  border-radius: 7px;
+  color: #334155;
+  font-size: .75rem;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.admin-dashboard :is(.crm-refresh, .registrations-refresh, .view-registration-btn):hover:not(:disabled) {
+  border-color: #BFDBFE;
+  background: var(--admin-indigo-soft);
+  color: var(--admin-indigo-dark);
+}
+
+.admin-dashboard :is(.crm-stat-card, .registration-stat-card) {
+  min-height: 88px;
+  padding: 17px;
+}
+
+.admin-dashboard :is(.crm-stat-icon, .registration-stat-icon) {
+  border-radius: 9px;
+  background: var(--admin-indigo-soft);
+  color: var(--admin-indigo);
+}
+
+.admin-dashboard :is(.crm-stat-card span, .registration-stat-card span) {
+  color: var(--admin-muted);
+}
+
+.admin-dashboard :is(.crm-stat-card strong, .registration-stat-card strong, .crm-chart-heading h2) {
+  color: var(--admin-navy);
+}
+
+.admin-dashboard :is(.crm-card-header, .crm-filters, .registrations-table thead) {
+  border-color: var(--admin-border);
+  background: #F8FAFC;
+}
+
+.admin-dashboard :is(.crm-table th, .registrations-table th) {
+  background: #F8FAFC;
+  color: #475569;
+  font-size: .66rem;
+  font-weight: 700;
+}
+
+.admin-dashboard :is(.crm-table td, .registrations-table td) {
+  border-color: #E9EEF5;
+  color: #475569;
+}
+
+.admin-dashboard :is(.crm-table tbody tr, .registrations-table tbody tr) {
+  transition: background-color .15s ease;
+}
+
+.admin-dashboard :is(.crm-table tbody tr:hover, .registrations-table tbody tr:hover) {
+  background: #F8FAFC;
+}
+
+.admin-dashboard .registration-modal {
+  border-color: var(--admin-border);
+  border-radius: 10px;
+}
+
+.admin-dashboard .font-category {
+  border-color: var(--admin-border);
+  border-radius: 9px;
+  background: #F8FAFC;
+}
+
+@media (max-width: 900px) {
+  .admin-dashboard .dashboard-sidebar { width: 264px; }
+  .admin-dashboard .dashboard-main { width: 100%; margin-left: 0; }
+  .admin-dashboard .dashboard-topbar { min-height: 64px; padding: 0 20px; }
+  .admin-dashboard .dashboard-content { padding: 24px 20px 40px; }
+}
+
+@media (max-width: 650px) {
+  .admin-dashboard .dashboard-content { padding: 20px 14px 32px; }
+  .admin-dashboard :is(.admin-form-container, .typography-panel) { padding: 17px; }
+  .admin-dashboard :is(.admin-header h1, .crm-header h1, .registrations-header h1) { font-size: 1.35rem; }
 }

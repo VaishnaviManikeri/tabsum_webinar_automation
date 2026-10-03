@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   FaUsers,
   FaUserPlus,
@@ -124,6 +125,34 @@ const CRMDashboard = () => {
     );
   };
 
+  const statusBreakdown = [
+    { key: 'new_leads', label: 'New', color: '#f59e0b' },
+    { key: 'registered', label: 'Registered', color: '#3b82f6' },
+    { key: 'interested', label: 'Interested', color: '#ec4899' },
+    { key: 'converted', label: 'Converted', color: '#10b981' },
+    { key: 'lost', label: 'Lost', color: '#ef4444' }
+  ].map(item => ({
+    ...item,
+    value: Number(stats[item.key]) || 0
+  }));
+
+  const totalLeads = Number(stats.total) || 0;
+  const statusTotal = statusBreakdown.reduce((sum, item) => sum + item.value, 0);
+  const chartTotal = statusTotal || totalLeads;
+  const largestStatus = Math.max(...statusBreakdown.map(item => item.value), 1);
+  let chartStart = 0;
+  const chartStops = chartTotal
+    ? statusBreakdown.map(item => {
+      const chartEnd = chartStart + (item.value / chartTotal) * 100;
+      const stop = `${item.color} ${chartStart}% ${chartEnd}%`;
+      chartStart = chartEnd;
+      return stop;
+    }).join(', ')
+    : '#e2e8f0 0% 100%';
+  const conversionRate = totalLeads
+    ? Math.round(((Number(stats.converted) || 0) / totalLeads) * 100)
+    : 0;
+
 
   return (
 
@@ -146,17 +175,27 @@ const CRMDashboard = () => {
           </p>
         </div>
 
-        <button
-          className="crm-refresh"
-          onClick={loadCRM}
-          disabled={loading}
-        >
-          <FaSync
-            className={loading ? 'crm-spin' : ''}
-          />
+        <div className="crm-header-actions">
+          <Link
+            className="crm-attendance-link"
+            to="/admin/dashboard/attendance"
+          >
+            <FaUsers />
+            Attendance & recordings
+          </Link>
 
-          Refresh
-        </button>
+          <button
+            className="crm-refresh"
+            onClick={loadCRM}
+            disabled={loading}
+          >
+            <FaSync
+              className={loading ? 'crm-spin' : ''}
+            />
+
+            Refresh
+          </button>
+        </div>
 
       </div>
 
@@ -219,6 +258,73 @@ const CRMDashboard = () => {
           </div>
 
         </div>
+
+      </div>
+
+      <div className="crm-analytics">
+
+        <section className="crm-chart-card crm-distribution-card">
+          <div className="crm-chart-heading">
+            <div>
+              <span className="crm-chart-kicker">Pipeline health</span>
+              <h2>Lead distribution</h2>
+            </div>
+            <span className="crm-chart-period">All time</span>
+          </div>
+
+          <div className="crm-donut-layout">
+            <div
+              className="crm-donut"
+              style={{ background: `conic-gradient(${chartStops})` }}
+              aria-label={`${totalLeads} total leads across five statuses`}
+            >
+              <div className="crm-donut-center">
+                <strong>{totalLeads}</strong>
+                <span>Total leads</span>
+              </div>
+            </div>
+
+            <div className="crm-legend">
+              {statusBreakdown.map(item => (
+                <div className="crm-legend-item" key={item.key}>
+                  <span className="crm-legend-label">
+                    <i style={{ backgroundColor: item.color }} />
+                    {item.label}
+                  </span>
+                  <strong>{item.value}</strong>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="crm-chart-card crm-funnel-card">
+          <div className="crm-chart-heading">
+            <div>
+              <span className="crm-chart-kicker">Conversion funnel</span>
+              <h2>Lead momentum</h2>
+            </div>
+            <div className="crm-conversion-rate">
+              <strong>{conversionRate}%</strong>
+              <span>conversion</span>
+            </div>
+          </div>
+
+          <div className="crm-bar-chart">
+            {statusBreakdown.map(item => (
+              <div className="crm-bar-row" key={item.key}>
+                <span className="crm-bar-label">{item.label}</span>
+                <div className="crm-bar-track">
+                  <span
+                    className="crm-bar-fill"
+                    style={{ width: `${(item.value / largestStatus) * 100}%`, backgroundColor: item.color }}
+                  />
+                </div>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
 
       </div>
 

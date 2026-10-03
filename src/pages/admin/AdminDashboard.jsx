@@ -12,7 +12,6 @@ import {
   FaListAlt,
   FaComments,
   FaBullhorn,
-  FaFont,
   FaUsers,
   FaClipboardList,
   FaBell,
@@ -21,12 +20,12 @@ import HomeAdmin from './HomeAdmin';
 import AboutAdmin from './AboutAdmin';
 import SectionAdmin from './SectionAdmin';
 import { sectionDefaults } from '../../contentDefaults';
-import TypographyAdmin from './TypographyAdmin';
 import './AdminDashboard.css';
 import './AdminTheme.css';
 import CRMDashboard from './CRMDashboard';
 import RegistrationsAdmin from './RegistrationsAdmin';
 import NotificationStatusAdmin from './NotificationStatusAdmin';
+import NotificationTemplatesAdmin from './NotificationTemplatesAdmin';
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -94,6 +93,17 @@ const AdminDashboard = () => {
   <FaBell />
   <span>Reminder Status</span>
 </NavLink>
+
+<NavLink
+  to="/admin/dashboard/notification-templates"
+  onClick={() => setSidebarOpen(false)}
+  className={({ isActive }) =>
+    `sidebar-link ${isActive ? 'active' : ''}`
+  }
+>
+  <FaBell />
+  <span>Message Templates</span>
+</NavLink>
         <nav className="sidebar-links">
           <NavLink to="/admin/dashboard" end onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaHome /><span>Home Page</span></NavLink>
           <NavLink to="/admin/dashboard/about" onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaInfoCircle /><span>About Page</span></NavLink>
@@ -102,7 +112,6 @@ const AdminDashboard = () => {
           <NavLink to="/admin/dashboard/agenda" onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaListAlt /><span>Agenda</span></NavLink>
           <NavLink to="/admin/dashboard/testimonials" onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaComments /><span>Testimonials</span></NavLink>
           <NavLink to="/admin/dashboard/cta" onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaBullhorn /><span>Final CTA</span></NavLink>
-          <NavLink to="/admin/dashboard/typography" onClick={() => setSidebarOpen(false)} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}><FaFont /><span>Typography</span></NavLink>
           
         </nav>
         <div className="sidebar-footer">
@@ -128,7 +137,6 @@ const AdminDashboard = () => {
             <Route path="agenda" element={<SectionAdmin slug="agenda" label="Agenda" defaults={sectionDefaults.agenda} />} />
             <Route path="testimonials" element={<SectionAdmin slug="testimonials" label="Testimonials" defaults={sectionDefaults.testimonials} />} />
             <Route path="cta" element={<SectionAdmin slug="cta" label="Final CTA" defaults={sectionDefaults.cta} />} />
-            <Route path="typography" element={<TypographyAdmin />} />
             <Route
   path="crm"
   element={<CRMDashboard />}
@@ -144,6 +152,10 @@ const AdminDashboard = () => {
             <Route
               path="notification-status/reminders"
               element={<NotificationStatusAdmin mode="reminders" />}
+            />
+            <Route
+              path="notification-templates"
+              element={<NotificationTemplatesAdmin />}
             />
           </Routes>
         </div>

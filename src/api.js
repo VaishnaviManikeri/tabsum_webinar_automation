@@ -420,6 +420,43 @@ export const leadAPI = {
 
 
 // ==================================================
+// WEBINAR ATTENDANCE API
+// ==================================================
+
+export const attendanceAPI = {
+  getDashboard: (params = {}) =>
+    api.get(
+      '/attendance',
+      { params }
+    ),
+
+  sync: (webinarId, { live = false } = {}) =>
+    api.post(
+      `/attendance/${webinarId}/sync`,
+      null,
+      {
+        params: { live }
+      }
+    ),
+
+  updateStatus: (
+    registrationId,
+    attendanceStatus
+  ) =>
+    api.put(
+      `/attendance/registrations/${registrationId}`,
+      { attendanceStatus }
+    ),
+
+  sendRecordings: (webinarId, formData) =>
+    api.post(
+      `/attendance/${webinarId}/send-recordings`,
+      formData
+    )
+};
+
+
+// ==================================================
 // DEFAULT EXPORT
 // ==================================================
 

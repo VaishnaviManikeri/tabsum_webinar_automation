@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import api from '../../api';
 import './HomeAdmin.css';
 import './AboutAdmin.css';
-import AppearanceControls from './AppearanceControls';
 
 const emptyForm = {
   badge: 'The Crossroad 2026',
@@ -105,7 +104,10 @@ const AboutAdmin = () => {
               <textarea id={name} name={name} rows="6" value={(form[name] || []).join('\n')} onChange={handleChange} />
             </div>
           ))}
-          <AppearanceControls value={form} onChange={appearance => setForm(current => ({ ...current, ...appearance }))} />
+          <div className="form-group">
+            <label htmlFor="about-text-color">Section text color</label>
+            <input id="about-text-color" name="textColor" type="color" value={form.textColor || '#0f172a'} onChange={handleChange} />
+          </div>
           <div className="about-admin-actions">
             <button className="submit-btn" disabled={loading}>{loading ? 'Saving...' : recordId ? 'Update About Page' : 'Create About Page'}</button>
             {recordId && <button type="button" className="delete-about-btn" onClick={handleDelete}>Delete Content</button>}

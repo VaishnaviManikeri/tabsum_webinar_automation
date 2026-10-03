@@ -4,6 +4,9 @@
   --luxury-sage-soft: #e4eee7;
   --luxury-mist: #e2eeee;
   --luxury-champagne: #b89a63;
+  --luxury-lavender: #9b91bb;
+  --luxury-lavender-soft: #b4aed0;
+  --luxury-lavender-wash: #f1eef7;
   --luxury-ink: #2f3b36;
   --luxury-muted: #718078;
   --luxury-line: rgba(76, 94, 83, 0.14);
@@ -27,10 +30,23 @@ body,
 .app :is(h1, h2, h3, h4, h5, h6) {
   color: var(--luxury-ink) !important;
   letter-spacing: 0 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 400 !important;
+}
+
+.app,
+.app :is(p, li, a, span, button, label, input, select, textarea, strong, em, small) {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 400;
+}
+
+.app .hero-section,
+.app .hero-section :is(h1, h2, h3, h4, h5, h6, p, li, a, span, button, label, strong, em, small) {
+  font-family: 'Playfair Display', Georgia, serif !important;
 }
 
 .navbar {
-  background: rgba(252, 250, 246, 0.93) !important;
+  background: #F4EFEB !important;
   border-bottom: 1px solid var(--luxury-line) !important;
   box-shadow: 0 12px 30px rgba(69, 84, 75, 0.07) !important;
 }
@@ -75,6 +91,10 @@ body,
 .brand-name strong { color: var(--luxury-sage) !important; font-weight: 800; }
 .app .nav-logo .brand-mark,
 .app .nav-logo .brand-name { background: transparent !important; }
+
+.app svg,
+.registration-page svg { color: var(--luxury-lavender) !important; }
+.admin-dashboard svg { color: #38bdf8 !important; }
 
 .app svg,
 .registration-page svg,
@@ -311,6 +331,14 @@ body,
   color: #167da3 !important;
 }
 
+.app .topic-number {
+  color: #c29112 !important;
+}
+
+.app .stat-number {
+  color: #c29112 !important;
+}
+
 .app .agenda-section .day-btn.active {
   background: #eaf6fb !important;
   border-color: #9bd4e7 !important;
@@ -344,5 +372,181 @@ body,
 .registration-page .registration-form :is(input, select, textarea) { border-color: #c8e5ef !important; color: #1f2937 !important; }
 .registration-page .registration-form :is(input, select, textarea):focus { border-color: #55b5d4 !important; box-shadow: 0 0 0 4px rgba(74, 174, 208, .14) !important; }
 .registration-page :is(.registration-submit, .success-icon) { background: linear-gradient(135deg, #58b8d8 0%, #167da3 100%) !important; box-shadow: 0 14px 30px rgba(22, 125, 163, .24) !important; }
+
+/* Lavender replaces the former teal accents across the public experience. */
+.app :is(.card-icon, .credential-icon, .benefit-icon-wrapper, .bonus-icon-wrapper, .session-icon-wrapper, .info-icon) {
+  background: var(--luxury-lavender-wash) !important;
+  border-color: rgba(155, 145, 187, .24) !important;
+  color: var(--luxury-lavender) !important;
+}
+
+.app :is(.card-icon svg, .credential-icon svg, .benefit-icon, .bonus-icon-wrapper svg, .session-icon-wrapper svg, .info-icon svg) {
+  color: var(--luxury-lavender) !important;
+}
+
+.app :is(.webinar-badge, .speaker-badge, .benefits-badge, .agenda-badge, .testimonials-badge, .cta-badge) {
+  color: var(--luxury-lavender) !important;
+  background: var(--luxury-lavender-wash) !important;
+  border-color: rgba(155, 145, 187, .3) !important;
+}
+
+.app :is(.speaker-section, .agenda-section, .testimonials-section) {
+  background: linear-gradient(135deg, #faf8fc 0%, #f0edf6 100%) !important;
+}
+
+.app .benefits-section {
+  background: linear-gradient(135deg, #f6f2f9 0%, #faf8fc 58%, #f8f0df 100%) !important;
+}
+
+.app section.cta-section {
+  background: linear-gradient(135deg, #f2edf7 0%, #faf8fc 56%, #f8f0df 100%) !important;
+}
+
+/* Gold accents replace the remaining blue treatments across the public page. */
+.app {
+  --luxury-gold: #b58a3b;
+  --luxury-gold-soft: #fbf4e5;
+  --luxury-gold-line: rgba(181, 138, 59, .28);
+}
+
+.app svg,
+.app :is(.day-icon, .timeline-icon, .takeaways-icon, .takeaway-check, .testimonial-rating, .testimonial-quote, .slider-arrow, .slider-nav button) {
+  color: var(--luxury-gold) !important;
+}
+
+.app :is(.stat-number, .topic-number, .outcome-number, .day-number, .session-number) {
+  color: var(--luxury-lavender) !important;
+}
+
+.app :is(.outcome-progress-bar, .title-underline, .speaker-underline, .benefits-underline, .agenda-underline, .testimonials-underline) {
+  background: linear-gradient(90deg, #b58a3b, #d8bd7c) !important;
+}
+
+.app :is(.day-btn.active, .day-header, .day-timeline, .takeaway-item, .testimonial-nav button, .testimonial-dot.active) {
+  background-color: var(--luxury-gold-soft) !important;
+  border-color: var(--luxury-gold-line) !important;
+}
+
+.app :is(.testimonial-prev, .testimonial-next, .slider-arrow, .slider-dot.active) {
+  background: var(--luxury-gold) !important;
+  border-color: var(--luxury-gold) !important;
+  color: #fff !important;
+}
+
+.app section.cta-section .cta-main-content::before {
+  background: linear-gradient(90deg, #9b91bb, #b4aed0, #e8cfa8) !important;
+}
+
+.app section.cta-section .cta-badge,
+.app section.cta-section .cta-secondary-btn,
+.app section.cta-section .urgency-banner {
+  border-color: rgba(155, 145, 187, .28) !important;
+  background: var(--luxury-lavender-wash) !important;
+  color: #756b98 !important;
+}
+
+.app section.cta-section .cta-primary-btn {
+  border-color: #756b98 !important;
+  background: linear-gradient(135deg, #9b91bb, #756b98) !important;
+  box-shadow: 0 12px 24px rgba(117, 107, 152, .2) !important;
+}
+
+.app .site-footer {
+  border-top-color: rgba(155, 145, 187, .22) !important;
+  background: linear-gradient(180deg, #fffefd 0%, #f1eef7 100%) !important;
+}
+
+.app .site-footer :is(.footer-heading, .footer-invitation > a, .back-to-top) {
+  color: var(--luxury-lavender) !important;
+}
+
+.app .site-footer .footer-register {
+  border-color: rgba(155, 145, 187, .3) !important;
+  background: var(--luxury-lavender-wash) !important;
+  color: var(--luxury-lavender) !important;
+}
+
+.registration-page {
+  background: linear-gradient(135deg, #fffefd 0%, #f7f4fa 54%, #f0edf6 100%) !important;
+}
+
+.registration-page :is(.registration-eyebrow, .registration-card-header span, .registration-success span, .registration-details svg, .registration-promise svg, .registration-secure svg) {
+  color: var(--luxury-lavender) !important;
+}
+
+.registration-page .registration-form :is(input, select, textarea):focus {
+  border-color: var(--luxury-lavender) !important;
+  box-shadow: 0 0 0 4px rgba(155, 145, 187, .14) !important;
+}
+
+.registration-page :is(.registration-submit, .success-icon) {
+  background: linear-gradient(135deg, #9b91bb 0%, #756b98 100%) !important;
+  box-shadow: 0 14px 30px rgba(117, 107, 152, .24) !important;
+}
+
+.navbar {
+  background: linear-gradient(110deg, #f3e8de 0%, #eee4e8 52%, #e5e1ef 100%) !important;
+}
+
+.app .site-footer {
+  background: #e8ddf5 !important;
+}
+
+.navbar :is(.nav-logo, .nav-menu, .nav-menu li a, .register-btn, svg),
+.app .site-footer :is(h1, h2, h3, h4, h5, h6, p, span, li, a, strong, button, svg) {
+  color: #000000 !important;
+}
+
+.navbar .nav-menu li a:hover {
+  color: #111111 !important;
+}
+
+.navbar .nav-menu li a::after {
+  background: #111111 !important;
+}
+
+.navbar .nav-menu {
+  background: transparent !important;
+}
+
+.navbar .brand-logo,
+.navbar .brand-logo :is(.brand-mark, .brand-mark svg, .brand-name, .brand-name strong) {
+  color: var(--luxury-champagne) !important;
+}
+
+.navbar .nav-logo .brand-logo .brand-name,
+.navbar .nav-logo .brand-logo .brand-name strong {
+  color: #000000 !important;
+}
+
+@media (min-width: 769px) {
+  .navbar .nav-container {
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+
+  .navbar .nav-logo {
+    position: static !important;
+    flex: 0 0 auto;
+    transform: none !important;
+  }
+
+  .navbar .nav-menu {
+    position: static !important;
+    inset: auto !important;
+    display: flex !important;
+    width: auto !important;
+    margin-left: auto !important;
+    padding: 0 !important;
+    gap: clamp(.75rem, 1.2vw, 1.25rem) !important;
+    pointer-events: auto !important;
+  }
+
+  .navbar .nav-menu-group {
+    justify-content: flex-end !important;
+    gap: clamp(.65rem, 1.1vw, 1.15rem) !important;
+    padding: 0 !important;
+  }
+}
 
 

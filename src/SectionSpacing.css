@@ -1,0 +1,104 @@
+/* Keep the landing page connected; components retain their internal spacing. */
+.app > section {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.app :is(
+  .about-container,
+  .speaker-section,
+  .benefits-section,
+  .agenda-section,
+  .testimonials-section,
+  .cta-section
+) {
+  padding-top: clamp(3rem, 5vw, 4.75rem) !important;
+  padding-bottom: clamp(3rem, 5vw, 4.75rem) !important;
+}
+
+.app :is(
+  .about-container,
+  .speaker-section,
+  .benefits-section,
+  .agenda-section,
+  .testimonials-section
+) :is(.section-header, .about-header, .speaker-header, .benefits-header, .agenda-header, .testimonials-header) {
+  margin-bottom: clamp(1.75rem, 3vw, 2.75rem) !important;
+}
+
+@media (max-width: 640px) {
+  .app :is(
+    .about-container,
+    .speaker-section,
+    .benefits-section,
+    .agenda-section,
+    .testimonials-section,
+    .cta-section
+  ) {
+    padding-top: 2.75rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+}
+
+/* Improve navbar readability without changing its structure or links. */
+.app .nav-menu li a {
+  font-size: 0.8rem !important;
+}
+
+@media (max-width: 768px) {
+  .app .nav-menu li a {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Keep primary action labels legible during hover and click states. */
+.app :is(
+  .register-btn,
+  .hero-btn,
+  .cta-button,
+  .cta-button-primary,
+  .cta-primary-btn,
+  .footer-register
+):is(:hover, :focus-visible, :active) {
+  color: #ffffff !important;
+}
+
+.app :is(
+  .register-btn,
+  .hero-btn,
+  .cta-button,
+  .cta-button-primary,
+  .cta-primary-btn,
+  .footer-register
+):is(:hover, :focus-visible, :active) :is(svg, span) {
+  color: #ffffff !important;
+}
+
+/* Registration consent: checkbox and copy share one row on desktop. */
+.registration-form .registration-consent {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.registration-form .registration-consent input {
+  flex: 0 0 18px;
+  margin: 0 !important;
+}
+
+.registration-form .registration-consent span {
+  display: block;
+  flex: 1 1 auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .registration-form .registration-consent {
+    align-items: flex-start;
+  }
+
+  .registration-form .registration-consent span {
+    white-space: normal;
+  }
+}

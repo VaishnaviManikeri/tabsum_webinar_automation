@@ -60,6 +60,84 @@
   padding: 0.65rem 0.75rem;
 }
 
+.whatsapp-message-guide {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.15rem;
+  border: 1px solid #b7ead8;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f0fdf9, #ffffff);
+}
+
+.whatsapp-guide-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  color: #128c7e;
+}
+
+.whatsapp-guide-heading > svg {
+  margin-top: 0.15rem;
+  font-size: 1.35rem;
+}
+
+.whatsapp-guide-heading span,
+.whatsapp-guide-heading strong,
+.whatsapp-guide-item span,
+.whatsapp-guide-item strong,
+.whatsapp-guide-item p {
+  display: block;
+}
+
+.whatsapp-guide-heading span {
+  color: #0f766e;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.whatsapp-guide-heading strong {
+  margin-top: 0.25rem;
+  color: #134e4a;
+}
+
+.whatsapp-guide-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem;
+}
+
+.whatsapp-guide-item {
+  padding: 0.75rem;
+  border: 1px solid #d1fae5;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.whatsapp-guide-item span {
+  color: #0f766e;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.whatsapp-guide-item strong {
+  margin-top: 0.3rem;
+  color: #1f2937;
+  font-size: 0.76rem;
+  overflow-wrap: anywhere;
+}
+
+.whatsapp-guide-item p {
+  margin: 0.35rem 0 0;
+  color: #64748b;
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
 .notification-status-error,
 .notification-status-empty {
   padding: 1.25rem;
@@ -131,6 +209,32 @@
 .notification-status.skipped,
 .notification-status.not_created { color: #64748b; }
 
+.whatsapp-message-preview {
+  display: block;
+  max-width: 240px;
+  margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed #dbe3ec;
+}
+
+.whatsapp-message-preview strong,
+.whatsapp-message-preview small {
+  display: block;
+}
+
+.whatsapp-message-preview strong {
+  color: #334155;
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+}
+
+.whatsapp-message-preview small {
+  margin-top: 0.2rem;
+  color: #64748b;
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
 @media (max-width: 700px) {
   .notification-status-header,
   .notification-status-toolbar {
@@ -141,5 +245,9 @@
   .notification-status-toolbar input {
     min-width: 0;
     width: 100%;
+  }
+
+  .whatsapp-message-guide {
+    grid-template-columns: 1fr;
   }
 }

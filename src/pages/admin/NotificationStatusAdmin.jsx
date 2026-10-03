@@ -66,6 +66,35 @@ const formatDate = (value) => {
   });
 };
 
+const reminderMessages = {
+  reminder_24h: {
+    template: 'reminder_24h',
+    copy: 'Your webinar is happening tomorrow. We are excited to have you with us!'
+  },
+  reminder_3h: {
+    template: 'reminder_3h',
+    copy: 'Your webinar starts in 3 hours. Please keep your Zoom details ready.'
+  },
+  reminder_30m: {
+    template: 'reminder_30m',
+    copy: 'Your webinar starts in 30 minutes. Please join on time.'
+  }
+};
+
+const getWhatsAppMessage = (row, isConfirmation) => {
+  if (isConfirmation) {
+    return {
+      template: 'registration_confirmation',
+      copy: 'Personalized confirmation with participant, webinar, schedule and Zoom details.'
+    };
+  }
+
+  return reminderMessages[row.reminder_type] || {
+    template: 'upcoming_webinar_reminder',
+    copy: 'Personalized upcoming webinar reminder.'
+  };
+};
+
 const NotificationStatusAdmin = (props) => {
   const { mode } = props;
   const [rows, setRows] = useState([]);
@@ -166,6 +195,31 @@ const NotificationStatusAdmin = (props) => {
         />
       </div>
 
+      <div className="whatsapp-message-guide">
+        <div className="whatsapp-guide-heading">
+          <FaWhatsapp />
+          <div>
+            <span>WhatsApp delivery map</span>
+            <strong>Messages sent to registered users</strong>
+          </div>
+        </div>
+        <div className="whatsapp-guide-items">
+          {isConfirmation ? (
+            <div className="whatsapp-guide-item">
+              <span>Confirmation</span>
+              <strong>registration_confirmation</strong>
+              <p>Registration, webinar schedule and Zoom details.</p>
+            </div>
+          ) : Object.entries(reminderMessages).map(([key, message]) => (
+            <div className="whatsapp-guide-item" key={key}>
+              <span>{key.replace('reminder_', '').replace('h', ' hours').replace('m', ' minutes')}</span>
+              <strong>{message.template}</strong>
+              <p>{message.copy}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {error && <div className="notification-status-error">{error}</div>}
 
       {loading ? (
@@ -208,14 +262,20 @@ const NotificationStatusAdmin = (props) => {
                     {isConfirmation ? (
                       <>
                         <td>{formatStatus(row.confirmation_email_status)}</td>
-                        <td>{formatStatus(row.confirmation_whatsapp_status)}</td>
+                        <td>
+                          {formatStatus(row.confirmation_whatsapp_status)}
+                          <WhatsAppMessagePreview row={row} isConfirmation />
+                        </td>
                       </>
                     ) : (
                       <>
                         <td>{row.reminder_type || 'Not created'}</td>
                         <td>{formatDate(row.scheduled_at)}</td>
                         <td>{formatStatus(row.reminder_email_status)}</td>
-                        <td>{formatStatus(row.reminder_whatsapp_status)}</td>
+                        <td>
+                          {formatStatus(row.reminder_whatsapp_status)}
+                          <WhatsAppMessagePreview row={row} />
+                        </td>
                       </>
                     )}
                   </tr>
@@ -225,6 +285,17 @@ const NotificationStatusAdmin = (props) => {
         </div>
       )}
     </section>
+  );
+};
+
+const WhatsAppMessagePreview = ({ row, isConfirmation = false }) => {
+  const message = getWhatsAppMessage(row, isConfirmation);
+
+  return (
+    <span className="whatsapp-message-preview">
+      <strong>{message.template}</strong>
+      <small>{message.copy}</small>
+    </span>
   );
 };
 

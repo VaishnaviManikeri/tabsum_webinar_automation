@@ -11,9 +11,6 @@ import {
   FaShieldAlt,
   FaCheckCircle,
   FaGift,
-  FaWhatsapp,
-  FaEnvelope,
-  FaPhone,
   FaStar,
   FaRocket,
   FaBolt,
@@ -134,28 +131,6 @@ const CTA = () => {
               <h4>Flexible Schedule</h4>
               <p>Recordings available for a limited period</p>
             </div>
-          </div>
-        </div>
-
-        {/* Contact Options */}
-        <div 
-          className="cta-contact"
-          ref={el => cardsRef.current[2] = el}
-        >
-          <p className="contact-label">Have questions? Reach out to us:</p>
-          <div className="contact-options">
-            <a href="#" className="contact-link whatsapp">
-              <FaWhatsapp />
-              <span>WhatsApp</span>
-            </a>
-            <a href="#" className="contact-link email">
-              <FaEnvelope />
-              <span>Email</span>
-            </a>
-            <a href="#" className="contact-link phone">
-              <FaPhone />
-              <span>Call Us</span>
-            </a>
           </div>
         </div>
 

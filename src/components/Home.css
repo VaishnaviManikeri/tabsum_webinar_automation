@@ -486,6 +486,9 @@
 }
 
 .btn-arrow {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
   transition: transform 0.3s ease;
 }
 

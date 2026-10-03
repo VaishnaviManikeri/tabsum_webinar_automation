@@ -459,7 +459,7 @@
 
 .outcome-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  background: linear-gradient(90deg, #9b91bb, #b4aed0);
   border-radius: 9999px;
   transition: width 1.5s ease;
 }
@@ -832,6 +832,7 @@
 }
 
 .cta-arrow {
+  color: #ffffff;
   width: 20px;
   height: 20px;
   transition: transform 0.3s ease;

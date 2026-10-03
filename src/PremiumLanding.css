@@ -180,3 +180,4 @@
 @media (prefers-reduced-motion: reduce) {
   .app *, .app *::before, .app *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+

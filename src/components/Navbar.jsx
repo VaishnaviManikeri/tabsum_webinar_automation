@@ -58,17 +58,26 @@ const Navbar = () => {
         </button>
 
         <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-          {navItems.map((item) => (
-            <li key={item.name}>
-              {item.name === 'Register' ? <Link
-                to={item.href}
-                className={item.name === 'Register' ? 'register-btn' : ''}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </Link> : <a href={item.href} onClick={() => setIsMenuOpen(false)}>{item.name}</a>}
-            </li>
-          ))}
+          <div className="nav-menu-group nav-menu-left">
+            {navItems.slice(0, 4).map((item) => (
+              <li key={item.name}>
+                <a href={item.href} onClick={() => setIsMenuOpen(false)}>{item.name}</a>
+              </li>
+            ))}
+          </div>
+          <div className="nav-menu-group nav-menu-right">
+            {navItems.slice(4).map((item) => (
+              <li key={item.name}>
+                {item.name === 'Register' ? <Link
+                  to={item.href}
+                  className="register-btn"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link> : <a href={item.href} onClick={() => setIsMenuOpen(false)}>{item.name}</a>}
+              </li>
+            ))}
+          </div>
         </ul>
 
         <button className="theme-toggle" onClick={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>

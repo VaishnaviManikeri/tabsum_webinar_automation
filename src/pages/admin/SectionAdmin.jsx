@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import api from '../../api';
 import './HomeAdmin.css';
 import './AboutAdmin.css';
-import AppearanceControls from './AppearanceControls';
 
 const SectionAdmin = ({ slug, label, defaults }) => {
   const [exists, setExists] = useState(false);
@@ -110,7 +109,10 @@ const SectionAdmin = ({ slug, label, defaults }) => {
           )}
         </div>;
       })}
-      <AppearanceControls value={form} onChange={appearance => setForm(current => ({ ...current, ...appearance }))} />
+      <div className="form-group">
+        <label htmlFor={`${slug}-textColor`}>Section text color</label>
+        <input id={`${slug}-textColor`} name="textColor" type="color" value={form.textColor || '#0f172a'} onChange={change} />
+      </div>
       <div className="about-admin-actions"><button className="submit-btn" disabled={loading}>{loading ? 'Saving...' : exists ? `Update ${label}` : `Create ${label}`}</button>{exists && <button type="button" className="delete-about-btn" onClick={remove}>Delete Content</button>}</div>
     </form></div>
   </div>;

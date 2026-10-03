@@ -47,6 +47,29 @@
   color: #0284c7;
 }
 
+.crm-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.crm-attendance-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: #7c3aed;
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.crm-attendance-link:hover {
+  background: #6d28d9;
+}
+
 .crm-spin {
   animation: crmSpin 1s linear infinite;
 }
@@ -99,6 +122,187 @@
   margin-top: 4px;
   font-size: 1.4rem;
   color: #0f172a;
+}
+
+
+/* Analytics */
+
+.crm-analytics {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.crm-chart-card {
+  min-width: 0;
+  padding: 22px 24px;
+  border: 1px solid #e7edf4;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, .04);
+}
+
+.crm-chart-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.crm-chart-kicker {
+  color: #0284c7;
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.crm-chart-heading h2 {
+  margin: 5px 0 0;
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+.crm-chart-period {
+  padding: 6px 9px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  color: #64748b;
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+.crm-donut-layout {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.crm-donut {
+  width: 156px;
+  height: 156px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.crm-donut::before {
+  width: 112px;
+  height: 112px;
+  content: '';
+  grid-area: 1 / 1;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.crm-donut-center {
+  z-index: 1;
+  display: grid;
+  grid-area: 1 / 1;
+  justify-items: center;
+}
+
+.crm-donut-center strong {
+  color: #0f172a;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.crm-donut-center span {
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: .65rem;
+}
+
+.crm-legend {
+  display: grid;
+  flex: 1;
+  gap: 11px;
+}
+
+.crm-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #334155;
+  font-size: .76rem;
+}
+
+.crm-legend-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crm-legend-label i {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.crm-legend-item strong {
+  color: #0f172a;
+  font-size: .78rem;
+}
+
+.crm-conversion-rate {
+  display: grid;
+  justify-items: end;
+}
+
+.crm-conversion-rate strong {
+  color: #059669;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.crm-conversion-rate span {
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: .65rem;
+}
+
+.crm-bar-chart {
+  display: grid;
+  gap: 15px;
+}
+
+.crm-bar-row {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 10px;
+  color: #64748b;
+  font-size: .72rem;
+}
+
+.crm-bar-label {
+  white-space: nowrap;
+}
+
+.crm-bar-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #f1f5f9;
+}
+
+.crm-bar-fill {
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  transition: width .45s ease;
+}
+
+.crm-bar-row strong {
+  color: #0f172a;
+  font-size: .75rem;
+  text-align: right;
 }
 
 
@@ -356,6 +560,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .crm-analytics {
+    grid-template-columns: 1fr;
+  }
+
 }
 
 @media (max-width: 650px) {
@@ -369,8 +577,36 @@
     justify-content: center;
   }
 
+  .crm-header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .crm-attendance-link {
+    width: 100%;
+    justify-content: center;
+  }
+
   .crm-stats {
     grid-template-columns: 1fr;
+  }
+
+  .crm-chart-card {
+    padding: 18px;
+  }
+
+  .crm-donut-layout {
+    gap: 20px;
+  }
+
+  .crm-donut {
+    width: 132px;
+    height: 132px;
+  }
+
+  .crm-donut::before {
+    width: 94px;
+    height: 94px;
   }
 
   .crm-card-header {

@@ -401,7 +401,7 @@
 .registration-page {
   background: linear-gradient(135deg, #fffefd 0%, #f3fafd 54%, #edf6fc 100%);
   color: #1f2937;
-  padding-right: 0;
+  padding-right: 5vw;
 }
 
 .registration-orb-one {
@@ -540,6 +540,13 @@
   max-width: none;
 }
 
+.registration-header {
+  width: calc(100% + 5vw);
+  margin-right: -5vw;
+  padding-right: 5vw;
+  box-sizing: border-box;
+}
+
 .registration-card,
 .registration-form input,
 .registration-form select,
@@ -550,8 +557,14 @@
 
 @media (max-width: 1100px) {
   .registration-page {
-    padding-right: 0;
+    padding-right: clamp(20px, 4vw, 48px);
     padding-left: clamp(20px, 4vw, 48px);
+  }
+
+  .registration-header {
+    width: calc(100% + clamp(20px, 4vw, 48px));
+    margin-right: calc(-1 * clamp(20px, 4vw, 48px));
+    padding-right: clamp(20px, 4vw, 48px);
   }
 
   .registration-shell {
@@ -583,6 +596,12 @@
 @media (max-width: 640px) {
   .registration-page {
     padding: 0 14px 40px;
+  }
+
+  .registration-header {
+    width: calc(100% + 28px);
+    margin-right: -14px;
+    padding-right: 14px;
   }
 
   .registration-shell,
@@ -691,6 +710,12 @@
   .registration-page {
     padding-right: 16px;
     padding-left: 16px;
+  }
+
+  .registration-header {
+    width: calc(100% + 32px);
+    margin-right: -16px;
+    padding-right: 16px;
   }
 
   .registration-intro h1 {

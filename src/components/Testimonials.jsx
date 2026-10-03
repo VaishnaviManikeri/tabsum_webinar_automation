@@ -10,7 +10,6 @@ import {
   FaQuoteRight,
   FaUserCircle,
   FaPlayCircle,
-  FaArrowLeft,
   FaArrowRight,
   FaCheckCircle,
   FaUsers,
@@ -95,14 +94,6 @@ const Testimonials = () => {
     { number: "98%", label: "Satisfaction Rate" }
   ];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -121,6 +112,14 @@ const Testimonials = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setCurrentSlide((current) => (current + 1) % testimonials.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [testimonials.length]);
 
   return (
     <section className="testimonials-section" data-section-customized="true" style={getSectionStyle(sectionContent)}>
@@ -168,16 +167,14 @@ const Testimonials = () => {
           ref={el => cardsRef.current[1] = el}
         >
           <div className="slider-container">
-            <button className="slider-btn prev" onClick={prevSlide}>
-              <FaArrowLeft />
-            </button>
-            
-            <div className="slider-track">
+            <div
+              className="slider-track"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={testimonial.id}
                   className={`testimonial-card ${index === currentSlide ? 'active' : ''}`}
-                  style={{ transform: `translateX(${(index - currentSlide) * 100}%)` }}
                 >
                   <div className="testimonial-content">
                     <FaQuoteLeft className="quote-icon left" />
@@ -227,9 +224,6 @@ const Testimonials = () => {
               ))}
             </div>
 
-            <button className="slider-btn next" onClick={nextSlide}>
-              <FaArrowRight />
-            </button>
           </div>
 
           <div className="slider-dots">
